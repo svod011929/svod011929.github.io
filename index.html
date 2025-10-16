@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KodoDrive - Python Full Stack Developer</title>
+    <meta name="description" content="Python Full Stack разработчик. Создаю современные веб-приложения с Django, Flask, React. Опыт в машинном обучении и DevOps.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-bracket">&lt;</span>
+                <span class="logo-text">KodoDrive</span>
+                <span class="logo-bracket">/&gt;</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">Обо мне</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#skills" class="nav-link">Технологии</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#projects" class="nav-link">Проекты</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#experience" class="nav-link">Опыт</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Контакты</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero секция -->
+    <section id="home" class="hero">
+        <div class="code-rain"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="code-line">
+                    <span class="code-comment"># Привет, мир!</span>
+                </div>
+                <h1 class="hero-title">
+                    <span class="code-keyword">class</span>
+                    <span class="highlight">KodoDrive</span>
+                    <span class="code-punctuation">:</span>
+                </h1>
+                <div class="hero-subtitle">
+                    <span class="code-indent">    </span>
+                    <span class="code-property">role</span>
+                    <span class="code-punctuation"> = </span>
+                    <span class="code-string">"Python Full Stack Developer"</span>
+                </div>
+                <div class="hero-description">
+                    <span class="code-indent">    </span>
+                    <span class="code-property">passion</span>
+                    <span class="code-punctuation"> = </span>
+                    <span class="code-string">"Создание масштабируемых веб-приложений"</span>
+                    <br>
+                    <span class="code-indent">    </span>
+                    <span class="code-property">expertise</span>
+                    <span class="code-punctuation"> = [</span>
+                    <span class="code-string">"Django"</span>
+                    <span class="code-punctuation">, </span>
+                    <span class="code-string">"React"</span>
+                    <span class="code-punctuation">, </span>
+                    <span class="code-string">"PostgreSQL"</span>
+                    <span class="code-punctuation">, </span>
+                    <span class="code-string">"Docker"</span>
+                    <span class="code-punctuation">]</span>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">
+                        <span class="btn-icon">⚡</span>
+                        Мои проекты
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <span class="btn-icon">📧</span>
+                        Связаться
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="code-editor">
+                    <div class="editor-header">
+                        <div class="editor-buttons">
+                            <span class="btn-close"></span>
+                            <span class="btn-minimize"></span>
+                            <span class="btn-maximize"></span>
+                        </div>
+                        <div class="editor-title">main.py</div>
+                    </div>
+                    <div class="editor-content">
+                        <div class="line-numbers">
+                            <span>1</span>
+                            <span>2</span>
+                            <span>3</span>
+                            <span>4</span>
+                            <span>5</span>
+                            <span>6</span>
+                        </div>
+                        <div class="code-content">
+                            <div><span class="code-keyword">from</span> kododrive <span class="code-keyword">import</span> Developer</div>
+                            <div></div>
+                            <div><span class="code-keyword">def</span> <span class="code-function">create_awesome_app</span>():</div>
+                            <div><span class="code-indent">    </span><span class="code-keyword">return</span> Developer().build()</div>
+                            <div></div>
+                            <div><span class="code-comment"># Готов к новым вызовам! 🚀</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Обо мне -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="code-comment">// Обо мне</span>
+            </h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        Я — <strong>Python Full Stack разработчик</strong> с <strong>5+ лет опыта</strong> 
+                        создания высоконагруженных веб-приложений. Специализируюсь на разработке 
+                        backend на Django/Flask и современного frontend на React.
+                    </p>
+                    <p>
+                        Имею опыт работы с <strong>машинным обучением</strong>, <strong>DevOps практиками</strong> 
+                        и построением <strong>микросервисной архитектуры</strong>. Люблю решать сложные 
+                        технические задачи и создавать продукты, которые приносят реальную пользу.
+                    </p>
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <span class="feature-icon">🐍</span>
+                            <span>Python Expert</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">⚡</span>
+                            <span>Fast Learner</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">🔧</span>
+                            <span>Problem Solver</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">🚀</span>
+                            <span>Performance Focused</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Проектов</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5+</span>
+                        <span class="stat-label">Лет опыта</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">20+</span>
+                        <span class="stat-label">Клиентов</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">99%</span>
+                        <span class="stat-label">Uptime</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Технологии -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="code-comment">// Технологический стек</span>
+            </h2>
+            <div class="skills-categories">
+                <div class="skill-category">
+                    <h3 class="category-title">Backend</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-icon">🐍</span>
+                                <span class="skill-name">Python</span>
+                                <span class="skill-percentage">95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="95"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-icon">🎯</span>
+                                <span class="skill-name">Django</span>
+                                <span class="skill-percentage">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-icon">⚡</span>
+                                <span class="skill-name">FastAPI</span>
+                                <span class="skill-percentage">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-icon">🌶️</span>
+                                <span class="skill-name">Flask</span>
+                                <span class="skill-percentage">80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="80"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="category-title">Frontend</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-icon">⚛️</span>
+                                <span class="skill-name">React</span>
+                                <span class="skill-percentage">88%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="88"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-icon">📜</span>
+                                <span class="skill-name">TypeScript</span>
+                                <span class="skill-percentage">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-icon">🎨</span>
+                                <span class="skill-name">CSS3/SASS</span>
+                                <span class="skill-percentage">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-icon">⚡</span>
+                                <span class="skill-name">Vue.js</span>
+                                <span class="skill-percentage">75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="75"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="category-title">Database & DevOps</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-icon">🐘</span>
+                                <span class="skill-name">PostgreSQL</span>
+                                <span class="skill-percentage">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-icon">🐳</span>
+                                <span class="skill-name">Docker</span>
+                                <span class="skill-percentage">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-icon">☁️</span>
+                                <span class="skill-name">AWS</span>
+                                <span class="skill-percentage">80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="80"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-icon">🔥</span>
+                                <span class="skill-name">Redis</span>
+                                <span class="skill-percentage">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Проекты -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="code-comment">// Избранные проекты</span>
+            </h2>
+            <div class="projects-grid">
+                <div class="project-item">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <span class="project-icon">🏪</span>
+                        </div>
+                        <div class="project-overlay">
+                            <a href="#" class="project-link">Демо</a>
+                            <a href="#" class="project-link">GitHub</a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>E-commerce Platform</h3>
+                        <p>Полнофункциональная платформа электронной коммерции с микросервисной архитектурой, обработкой платежей и системой аналитики.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Django</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                            <span class="tech-tag">Redis</span>
+                            <span class="tech-tag">Docker</span>
+                        </div>
+                        <div class="project-stats">
+                            <span class="stat">1000+ пользователей</span>
+                            <span class="stat">99.9% uptime</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <span class="project-icon">🤖</span>
+                        </div>
+                        <div class="project-overlay">
+                            <a href="#" class="project-link">Демо</a>
+                            <a href="#" class="project-link">GitHub</a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>AI Analytics Dashboard</h3>
+                        <p>Система аналитики с машинным обучением для предсказания трендов и автоматизации бизнес-процессов.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">FastAPI</span>
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">TensorFlow</span>
+                            <span class="tech-tag">MongoDB</span>
+                            <span class="tech-tag">Celery</span>
+                        </div>
+                        <div class="project-stats">
+                            <span class="stat">95% точность ML</span>
+                            <span class="stat">500K+ записей</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <span class="project-icon">💬</span>
+                        </div>
+                        <div class="project-overlay">
+                            <a href="#" class="project-link">Демо</a>
+                            <a href="#" class="project-link">GitHub</a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Real-time Chat System</h3>
+                        <p>Масштабируемая система чата в реальном времени с поддержкой групп, файлов и end-to-end шифрования.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Django Channels</span>
+                            <span class="tech-tag">WebSocket</span>
+                            <span class="tech-tag">Redis</span>
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                        </div>
+                        <div class="project-stats">
+                            <span class="stat">10K+ сообщений/мин</span>
+                            <span class="stat">Шифрование E2E</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Опыт работы -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="code-comment">// Опыт работы</span>
+            </h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2023 — Настоящее время</div>
+                    <div class="timeline-content">
+                        <h3>Senior Python Developer</h3>
+                        <h4>Tech Startup</h4>
+                        <p>Ведущий разработчик в команде из 8 человек. Архитектура и разработка высоконагруженной платформы с 100K+ пользователями.</p>
+                        <ul>
+                            <li>Проектирование микросервисной архитектуры</li>
+                            <li>Оптимизация производительности (снижение времени ответа на 60%)</li>
+                            <li>Менторинг младших разработчиков</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2021 — 2023</div>
+                    <div class="timeline-content">
+                        <h3>Full Stack Developer</h3>
+                        <h4>Digital Agency</h4>
+                        <p>Разработка веб-приложений для крупных клиентов. Ответственен за полный цикл разработки от идеи до деплоя.</p>
+                        <ul>
+                            <li>Создание 15+ успешных проектов</li>
+                            <li>Интеграция с внешними API и сервисами</li>
+                            <li>Настройка CI/CD пайплайнов</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2020 — 2021</div>
+                    <div class="timeline-content">
+                        <h3>Python Developer</h3>
+                        <h4>Freelance</h4>
+                        <p>Разработка веб-приложений и автоматизация бизнес-процессов для малого и среднего бизнеса.</p>
+                        <ul>
+                            <li>Django и Flask приложения</li>
+                            <li>Скрипты для автоматизации</li>
+                            <li>Интеграция с CRM системами</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="code-comment">// Свяжитесь со мной</span>
+            </h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Готов к новым вызовам!</h3>
+                    <p>Ищете опытного Python разработчика для вашего проекта? Давайте обсудим, как я могу помочь воплотить ваши идеи в жизнь.</p>
+
+                    <div class="contact-methods">
+                        <div class="contact-item">
+                            <span class="contact-icon">📧</span>
+                            <div class="contact-details">
+                                <span class="contact-label">Email</span>
+                                <span class="contact-value">hello@kododrive.ru</span>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">📱</span>
+                            <div class="contact-details">
+                                <span class="contact-label">Telegram</span>
+                                <span class="contact-value">@kododrive</span>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">💼</span>
+                            <div class="contact-details">
+                                <span class="contact-label">LinkedIn</span>
+                                <span class="contact-value">linkedin.com/in/kododrive</span>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">🐙</span>
+                            <div class="contact-details">
+                                <span class="contact-label">GitHub</span>
+                                <span class="contact-value">github.com/kododrive</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <div class="form-header">
+                        <h4>Отправить сообщение</h4>
+                        <p>Расскажите о вашем проекте</p>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Ваше имя" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Email для связи" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="subject" name="subject" placeholder="Тема проекта" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" placeholder="Опишите ваш проект и требования..." rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <span class="btn-icon">🚀</span>
+                        Отправить сообщение
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <div class="footer-logo">
+                        <span class="logo-bracket">&lt;</span>
+                        <span class="logo-text">KodoDrive</span>
+                        <span class="logo-bracket">/&gt;</span>
+                    </div>
+                    <p>Python Full Stack Developer</p>
+                </div>
+                <div class="footer-right">
+                    <p>&copy; 2025 KodoDrive. Создано с ❤️ и Python</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
