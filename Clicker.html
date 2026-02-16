@@ -1,0 +1,2222 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoMiner Telegram Bot Generator</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; background: #0a0a0f; }
+        .code-font { font-family: 'JetBrains Mono', monospace; }
+        .gradient-text {
+            background: linear-gradient(135deg, #f7931a, #ffcc00, #f7931a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card-glow {
+            box-shadow: 0 0 30px rgba(247, 147, 26, 0.1);
+            border: 1px solid rgba(247, 147, 26, 0.2);
+        }
+        .card-glow:hover {
+            box-shadow: 0 0 40px rgba(247, 147, 26, 0.2);
+            border-color: rgba(247, 147, 26, 0.4);
+        }
+        pre { white-space: pre; overflow-x: auto; }
+        .code-block {
+            background: #0d1117;
+            border: 1px solid #21262d;
+            border-radius: 8px;
+            max-height: 70vh;
+            overflow: auto;
+        }
+        .code-block code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            color: #c9d1d9;
+        }
+        .tab-active {
+            background: linear-gradient(135deg, #f7931a, #e8850f);
+            color: white;
+        }
+        .tab-inactive {
+            background: rgba(255,255,255,0.05);
+            color: #888;
+        }
+        .pulse-dot {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .feature-icon {
+            width: 48px; height: 48px;
+            background: linear-gradient(135deg, rgba(247,147,26,0.2), rgba(255,204,0,0.1));
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px;
+        }
+        .scroll-hide::-webkit-scrollbar { width: 6px; }
+        .scroll-hide::-webkit-scrollbar-track { background: transparent; }
+        .scroll-hide::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        .copy-btn {
+            transition: all 0.3s;
+        }
+        .copy-btn:hover {
+            transform: scale(1.05);
+        }
+        .env-input {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            width: 100%;
+        }
+        .env-input:focus {
+            outline: none;
+            border-color: #f7931a;
+        }
+    </style>
+</head>
+<body class="text-white min-h-screen">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 backdrop-blur-xl bg-[#0a0a0f]/80 border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#f7931a] to-[#ffcc00] flex items-center justify-center text-xl">⛏️</div>
+                <div>
+                    <h1 class="text-lg font-bold gradient-text">CryptoMiner Bot</h1>
+                    <p class="text-xs text-gray-500">aiogram 3.x • Python</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <span class="flex items-center gap-2 text-sm text-green-400">
+                    <span class="w-2 h-2 rounded-full bg-green-400 pulse-dot"></span>
+                    Ready to Deploy
+                </span>
+                <button onclick="downloadBot()" class="px-4 py-2 bg-gradient-to-r from-[#f7931a] to-[#e8850f] rounded-lg text-sm font-semibold hover:opacity-90 transition cursor-pointer">
+                    ⬇️ Скачать бота
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#f7931a]/5 to-transparent"></div>
+        <div class="max-w-7xl mx-auto px-4 py-16 relative">
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-extrabold mb-4">
+                    <span class="gradient-text">CryptoMiner</span> Telegram Bot
+                </h2>
+                <p class="text-gray-400 text-lg mb-8">
+                    Полнофункциональный бот для заработка игровой валюты с механиками майнинга, тапов, реферальной системой, магазином бустов и админ-панелью
+                </p>
+                <div class="flex flex-wrap justify-center gap-3 mb-8">
+                    <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">🐍 Python 3.10+</span>
+                    <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">🤖 aiogram 3.x</span>
+                    <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">🗄️ SQLite</span>
+                    <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">⚡ Async</span>
+                    <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">🔌 Flyer API</span>
+                    <span class="px-3 py-1 bg-white/5 rounded-full text-sm text-gray-300">📊 HiViews</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section class="max-w-7xl mx-auto px-4 pb-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="card-glow bg-white/5 rounded-xl p-5 transition-all duration-300">
+                <div class="feature-icon mb-3">⛏️</div>
+                <h3 class="font-semibold mb-1">Майнинг</h3>
+                <p class="text-sm text-gray-400">Пассивный доход раз в 24ч с прогресс-баром и бустами</p>
+            </div>
+            <div class="card-glow bg-white/5 rounded-xl p-5 transition-all duration-300">
+                <div class="feature-icon mb-3">👆</div>
+                <h3 class="font-semibold mb-1">Тапы</h3>
+                <p class="text-sm text-gray-400">Кликер с лимитами, паузами и промо-рекламой</p>
+            </div>
+            <div class="card-glow bg-white/5 rounded-xl p-5 transition-all duration-300">
+                <div class="feature-icon mb-3">👥</div>
+                <h3 class="font-semibold mb-1">Рефералы</h3>
+                <p class="text-sm text-gray-400">Реферальная система с бонусами за приглашения</p>
+            </div>
+            <div class="card-glow bg-white/5 rounded-xl p-5 transition-all duration-300">
+                <div class="feature-icon mb-3">🛒</div>
+                <h3 class="font-semibold mb-1">Магазин</h3>
+                <p class="text-sm text-gray-400">Бусты: +10% майнинг, x2 тапы, +500 лимит</p>
+            </div>
+            <div class="card-glow bg-white/5 rounded-xl p-5 transition-all duration-300">
+                <div class="feature-icon mb-3">💸</div>
+                <h3 class="font-semibold mb-1">Вывод средств</h3>
+                <p class="text-sm text-gray-400">Заявки с одобрением админа и уведомлениями</p>
+            </div>
+            <div class="card-glow bg-white/5 rounded-xl p-5 transition-all duration-300">
+                <div class="feature-icon mb-3">🔧</div>
+                <h3 class="font-semibold mb-1">Админ-панель</h3>
+                <p class="text-sm text-gray-400">Полное управление ботом без перезапуска</p>
+            </div>
+            <div class="card-glow bg-white/5 rounded-xl p-5 transition-all duration-300">
+                <div class="feature-icon mb-3">📊</div>
+                <h3 class="font-semibold mb-1">Статистика</h3>
+                <p class="text-sm text-gray-400">Детальная информация по всем метрикам</p>
+            </div>
+            <div class="card-glow bg-white/5 rounded-xl p-5 transition-all duration-300">
+                <div class="feature-icon mb-3">🎁</div>
+                <h3 class="font-semibold mb-1">Ежедневный бонус</h3>
+                <p class="text-sm text-gray-400">Серия бонусов с увеличением streak</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tabs -->
+    <section class="max-w-7xl mx-auto px-4 pb-16">
+        <div class="flex flex-wrap gap-2 mb-4">
+            <button onclick="switchTab('code')" id="tab-code" class="px-4 py-2 rounded-lg text-sm font-medium transition tab-active cursor-pointer">📄 Код бота</button>
+            <button onclick="switchTab('env')" id="tab-env" class="px-4 py-2 rounded-lg text-sm font-medium transition tab-inactive cursor-pointer">⚙️ Настройка .env</button>
+            <button onclick="switchTab('install')" id="tab-install" class="px-4 py-2 rounded-lg text-sm font-medium transition tab-inactive cursor-pointer">🚀 Установка</button>
+            <button onclick="switchTab('structure')" id="tab-structure" class="px-4 py-2 rounded-lg text-sm font-medium transition tab-inactive cursor-pointer">🏗️ Структура</button>
+        </div>
+
+        <!-- Code Tab -->
+        <div id="content-code" class="tab-content">
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-sm text-gray-400 code-font">bot.py — ~2100 строк</span>
+                <button onclick="copyCode()" class="copy-btn px-4 py-2 bg-white/10 rounded-lg text-sm hover:bg-white/20 transition cursor-pointer">
+                    📋 Копировать код
+                </button>
+            </div>
+            <div class="code-block p-4 scroll-hide">
+                <pre><code id="bot-code"></code></pre>
+            </div>
+        </div>
+
+        <!-- Env Tab -->
+        <div id="content-env" class="tab-content hidden">
+            <div class="card-glow bg-white/5 rounded-xl p-6">
+                <h3 class="text-xl font-bold mb-4">⚙️ Генератор .env файла</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label class="text-sm text-gray-400 mb-1 block">BOT_TOKEN *</label>
+                        <input type="text" id="env-token" placeholder="123456:ABC-DEF..." class="env-input">
+                    </div>
+                    <div>
+                        <label class="text-sm text-gray-400 mb-1 block">ADMIN_IDS *</label>
+                        <input type="text" id="env-admins" placeholder="123456789,987654321" class="env-input">
+                    </div>
+                    <div>
+                        <label class="text-sm text-gray-400 mb-1 block">FLYER_KEY (опционально)</label>
+                        <input type="text" id="env-flyer" placeholder="flyer_api_key" class="env-input">
+                    </div>
+                    <div>
+                        <label class="text-sm text-gray-400 mb-1 block">HIVIEWS_API_KEY (опционально)</label>
+                        <input type="text" id="env-hiviews" placeholder="hiviews_key" class="env-input">
+                    </div>
+                </div>
+                <button onclick="generateEnv()" class="px-6 py-3 bg-gradient-to-r from-[#f7931a] to-[#e8850f] rounded-lg font-semibold hover:opacity-90 transition cursor-pointer">
+                    📥 Скачать .env файл
+                </button>
+                <div id="env-preview" class="mt-4 code-block p-4 hidden">
+                    <pre><code id="env-code" class="text-green-400"></code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Install Tab -->
+        <div id="content-install" class="tab-content hidden">
+            <div class="card-glow bg-white/5 rounded-xl p-6">
+                <h3 class="text-xl font-bold mb-4">🚀 Инструкция по установке</h3>
+                <div class="space-y-6">
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-full bg-[#f7931a] flex items-center justify-center text-sm font-bold shrink-0">1</div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Создайте бота в Telegram</h4>
+                            <p class="text-gray-400 text-sm">Откройте @BotFather, создайте бота и скопируйте токен</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-full bg-[#f7931a] flex items-center justify-center text-sm font-bold shrink-0">2</div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Скачайте файлы</h4>
+                            <p class="text-gray-400 text-sm mb-2">Скачайте bot.py и создайте .env файл</p>
+                            <div class="code-block p-3">
+                                <code class="text-sm text-green-400">
+mkdir cryptominer-bot && cd cryptominer-bot
+# Скачайте bot.py в эту папку
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-full bg-[#f7931a] flex items-center justify-center text-sm font-bold shrink-0">3</div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Настройте .env</h4>
+                            <p class="text-gray-400 text-sm mb-2">Создайте файл .env рядом с bot.py</p>
+                            <div class="code-block p-3">
+                                <code class="text-sm text-yellow-400">
+BOT_TOKEN=ваш_токен_бота<br>
+ADMIN_IDS=ваш_telegram_id<br>
+FLYER_KEY=<br>
+HIVIEWS_API_KEY=
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-full bg-[#f7931a] flex items-center justify-center text-sm font-bold shrink-0">4</div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Запустите бота</h4>
+                            <p class="text-gray-400 text-sm mb-2">Зависимости установятся автоматически</p>
+                            <div class="code-block p-3">
+                                <code class="text-sm text-green-400">python bot.py</code>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-full bg-[#f7931a] flex items-center justify-center text-sm font-bold shrink-0">5</div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Используйте админ-панель</h4>
+                            <p class="text-gray-400 text-sm">Отправьте /admin в боте для настройки</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Structure Tab -->
+        <div id="content-structure" class="tab-content hidden">
+            <div class="card-glow bg-white/5 rounded-xl p-6">
+                <h3 class="text-xl font-bold mb-4">🏗️ Структура кода</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-3">
+                        <div class="p-3 bg-white/5 rounded-lg">
+                            <h4 class="text-sm font-semibold text-[#f7931a] mb-1">📦 Автоустановка</h4>
+                            <p class="text-xs text-gray-400">Проверка и установка пакетов при запуске</p>
+                        </div>
+                        <div class="p-3 bg-white/5 rounded-lg">
+                            <h4 class="text-sm font-semibold text-[#f7931a] mb-1">🗄️ База данных</h4>
+                            <p class="text-xs text-gray-400">8 таблиц: users, transactions, withdrawals, settings, boosts, promo и др.</p>
+                        </div>
+                        <div class="p-3 bg-white/5 rounded-lg">
+                            <h4 class="text-sm font-semibold text-[#f7931a] mb-1">🔌 Интеграции</h4>
+                            <p class="text-xs text-gray-400">Flyer API + HiViews middleware</p>
+                        </div>
+                        <div class="p-3 bg-white/5 rounded-lg">
+                            <h4 class="text-sm font-semibold text-[#f7931a] mb-1">⌨️ Клавиатуры</h4>
+                            <p class="text-xs text-gray-400">Reply + Inline клавиатуры для всех меню</p>
+                        </div>
+                        <div class="p-3 bg-white/5 rounded-lg">
+                            <h4 class="text-sm font-semibold text-[#f7931a] mb-1">🔄 FSM</h4>
+                            <p class="text-xs text-gray-400">Машина состояний для ввода данных</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="p-3 bg-white/5 rounded-lg">
+                            <h4 class="text-sm font-semibold text-[#f7931a] mb-1">🎮 Хендлеры</h4>
+                            <p class="text-xs text-gray-400">Майнинг, тапы, бонусы, магазин, вывод</p>
+                        </div>
+                        <div class="p-3 bg-white/5 rounded-lg">
+                            <h4 class="text-sm font-semibold text-[#f7931a] mb-1">🔧 Админ-панель</h4>
+                            <p class="text-xs text-gray-400">10 разделов управления ботом</p>
+                        </div>
+                        <div class="p-3 bg-white/5 rounded-lg">
+                            <h4 class="text-sm font-semibold text-[#f7931a] mb-1">⏰ Фоновые задачи</h4>
+                            <p class="text-xs text-gray-400">Сброс тапов в полночь, очистка бустов</p>
+                        </div>
+                        <div class="p-3 bg-white/5 rounded-lg">
+                            <h4 class="text-sm font-semibold text-[#f7931a] mb-1">📊 Статистика</h4>
+                            <p class="text-xs text-gray-400">Общая и персональная аналитика</p>
+                        </div>
+                        <div class="p-3 bg-white/5 rounded-lg">
+                            <h4 class="text-sm font-semibold text-[#f7931a] mb-1">🚀 Запуск</h4>
+                            <p class="text-xs text-gray-400">Асинхронный main с polling</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+            <p>CryptoMiner Bot Generator • aiogram 3.x • Python 3.10+</p>
+        </div>
+    </footer>
+
+    <script>
+    // Bot source code
+    const BOT_CODE = `#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+CryptoMiner Telegram Bot
+=========================
+Полнофункциональный бот для заработка игровой валюты с механиками майнинга,
+тапов, реферальной системой, магазином бустов и админ-панелью.
+
+Стек: Python 3.10+ / aiogram 3.x / SQLite / aiohttp
+"""
+
+# ============================================================
+# 1. АВТОУСТАНОВКА ЗАВИСИМОСТЕЙ
+# ============================================================
+import subprocess, sys
+
+def ensure_packages():
+    """Проверяет и устанавливает недостающие пакеты."""
+    required = {
+        "aiogram": "aiogram",
+        "aiohttp": "aiohttp",
+        "dotenv": "python-dotenv",
+    }
+    for module, package in required.items():
+        try:
+            __import__(module)
+        except ImportError:
+            print(f"[SETUP] Устанавливаю {package}...")
+            subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+    # flyerapi — опциональный
+    try:
+        __import__("flyer")
+    except ImportError:
+        try:
+            subprocess.check_call([sys.executable, "-m", "pip", "install", "flyerapi"])
+        except Exception:
+            print("[SETUP] flyerapi не удалось установить, продолжаем без него")
+
+ensure_packages()
+
+# ============================================================
+# 2. ИМПОРТЫ
+# ============================================================
+import os
+import logging
+import sqlite3
+import asyncio
+import time
+import json
+from datetime import datetime, timedelta, timezone
+from typing import Optional, List, Any
+
+from aiogram import Bot, Dispatcher, Router, F, BaseMiddleware
+from aiogram.types import (
+    Message, CallbackQuery, ReplyKeyboardMarkup, KeyboardButton,
+    InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardRemove,
+    InputMediaPhoto, Update
+)
+from aiogram.filters import Command, CommandStart
+from aiogram.fsm.context import FSMContext
+from aiogram.fsm.state import State, StatesGroup
+from aiogram.client.default import DefaultBotProperties
+from aiogram.enums import ParseMode
+
+import aiohttp
+from dotenv import load_dotenv
+
+# Flyer — опциональный
+try:
+    from flyer import Flyer
+    FLYER_AVAILABLE = True
+except ImportError:
+    FLYER_AVAILABLE = False
+
+# ============================================================
+# 3. ЗАГРУЗКА .env
+# ============================================================
+load_dotenv()
+
+BOT_TOKEN = os.getenv("BOT_TOKEN", "")
+ADMIN_IDS = [int(x.strip()) for x in os.getenv("ADMIN_IDS", "").split(",") if x.strip()]
+FLYER_KEY_ENV = os.getenv("FLYER_KEY", "")
+HIVIEWS_API_KEY = os.getenv("HIVIEWS_API_KEY", "")
+
+if not BOT_TOKEN:
+    print("[ERROR] BOT_TOKEN не задан в .env!")
+    sys.exit(1)
+
+# ============================================================
+# 4. ЛОГИРОВАНИЕ
+# ============================================================
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+)
+logger = logging.getLogger("CryptoMinerBot")
+
+# ============================================================
+# 5. БАЗА ДАННЫХ — SQLite
+# ============================================================
+DB_PATH = "cryptominer.db"
+
+def get_db() -> sqlite3.Connection:
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    conn.execute("PRAGMA journal_mode=WAL")
+    conn.execute("PRAGMA foreign_keys=ON")
+    return conn
+
+def init_db():
+    """Инициализация всех таблиц и настроек по умолчанию."""
+    conn = get_db()
+    c = conn.cursor()
+
+    c.execute("""CREATE TABLE IF NOT EXISTS users (
+        user_id INTEGER PRIMARY KEY,
+        username TEXT DEFAULT '',
+        full_name TEXT DEFAULT '',
+        balance REAL DEFAULT 0,
+        daily_streak INTEGER DEFAULT 0,
+        last_daily_claim TEXT DEFAULT '',
+        taps_today INTEGER DEFAULT 0,
+        last_tap_reset TEXT DEFAULT '',
+        last_mining_claim TEXT DEFAULT '',
+        referred_by INTEGER DEFAULT 0,
+        is_referral_claimed INTEGER DEFAULT 0,
+        click_block_until TEXT DEFAULT '',
+        created_at TEXT DEFAULT ''
+    )""")
+
+    c.execute("""CREATE TABLE IF NOT EXISTS transactions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER,
+        amount REAL,
+        type TEXT,
+        created_at TEXT DEFAULT ''
+    )""")
+
+    c.execute("""CREATE TABLE IF NOT EXISTS withdrawal_requests (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER,
+        amount REAL,
+        telegram_username TEXT DEFAULT '',
+        status TEXT DEFAULT 'pending',
+        admin_id INTEGER DEFAULT 0,
+        processed_at TEXT DEFAULT '',
+        created_at TEXT DEFAULT ''
+    )""")
+
+    c.execute("""CREATE TABLE IF NOT EXISTS settings (
+        key TEXT PRIMARY KEY,
+        value TEXT DEFAULT ''
+    )""")
+
+    c.execute("""CREATE TABLE IF NOT EXISTS bonus_settings (
+        setting_key TEXT PRIMARY KEY,
+        setting_value TEXT DEFAULT ''
+    )""")
+
+    c.execute("""CREATE TABLE IF NOT EXISTS channel_settings (
+        channel_url TEXT DEFAULT '',
+        channel_name TEXT DEFAULT ''
+    )""")
+
+    c.execute("""CREATE TABLE IF NOT EXISTS active_boosts (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER,
+        boost_type TEXT,
+        boost_value REAL,
+        expires_at TEXT DEFAULT ''
+    )""")
+
+    c.execute("""CREATE TABLE IF NOT EXISTS promo_ads (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        line1 TEXT DEFAULT '',
+        line2 TEXT DEFAULT '',
+        line3 TEXT DEFAULT '',
+        button_text TEXT DEFAULT '',
+        button_url TEXT DEFAULT '',
+        is_active INTEGER DEFAULT 0,
+        created_at TEXT DEFAULT ''
+    )""")
+
+    c.execute("""CREATE TABLE IF NOT EXISTS flyer_settings (
+        id INTEGER PRIMARY KEY DEFAULT 1,
+        flyer_key TEXT DEFAULT ''
+    )""")
+
+    conn.commit()
+
+    # Настройки по умолчанию
+    defaults = {
+        "daily_bonus": "50",
+        "referral_bonus": "100",
+        "mining_reward": "25",
+        "tap_reward": "1",
+        "daily_click_limit": "500",
+        "currency": "💰",
+    }
+    for k, v in defaults.items():
+        c.execute("INSERT OR IGNORE INTO bonus_settings (setting_key, setting_value) VALUES (?, ?)", (k, v))
+
+    c.execute("INSERT OR IGNORE INTO settings (key, value) VALUES (?, ?)", ("exchange_rate", "0.001"))
+
+    # Flyer key
+    c.execute("SELECT COUNT(*) FROM flyer_settings")
+    if c.fetchone()[0] == 0:
+        c.execute("INSERT INTO flyer_settings (id, flyer_key) VALUES (1, ?)", (FLYER_KEY_ENV,))
+
+    conn.commit()
+    conn.close()
+    logger.info("База данных инициализирована")
+
+# ----- Хелперы БД -----
+
+def db_get_user(user_id: int) -> Optional[dict]:
+    conn = get_db()
+    row = conn.execute("SELECT * FROM users WHERE user_id=?", (user_id,)).fetchone()
+    conn.close()
+    return dict(row) if row else None
+
+def db_create_user(user_id: int, username: str, full_name: str, referred_by: int = 0):
+    conn = get_db()
+    now = datetime.now(timezone.utc).isoformat()
+    conn.execute(
+        "INSERT OR IGNORE INTO users (user_id, username, full_name, referred_by, created_at) VALUES (?,?,?,?,?)",
+        (user_id, username or '', full_name or '', referred_by, now)
+    )
+    conn.commit()
+    conn.close()
+
+def db_update_balance(user_id: int, amount: float, tx_type: str = "other"):
+    conn = get_db()
+    conn.execute("UPDATE users SET balance = balance + ? WHERE user_id=?", (amount, user_id))
+    now = datetime.now(timezone.utc).isoformat()
+    conn.execute("INSERT INTO transactions (user_id, amount, type, created_at) VALUES (?,?,?,?)",
+                 (user_id, amount, tx_type, now))
+    conn.commit()
+    conn.close()
+
+def db_get_setting(key: str) -> str:
+    conn = get_db()
+    row = conn.execute("SELECT value FROM settings WHERE key=?", (key,)).fetchone()
+    conn.close()
+    return row["value"] if row else ""
+
+def db_set_setting(key: str, value: str):
+    conn = get_db()
+    conn.execute("INSERT OR REPLACE INTO settings (key, value) VALUES (?,?)", (key, value))
+    conn.commit()
+    conn.close()
+
+def db_get_bonus(key: str) -> str:
+    conn = get_db()
+    row = conn.execute("SELECT setting_value FROM bonus_settings WHERE setting_key=?", (key,)).fetchone()
+    conn.close()
+    return row["setting_value"] if row else "0"
+
+def db_set_bonus(key: str, value: str):
+    conn = get_db()
+    conn.execute("INSERT OR REPLACE INTO bonus_settings (setting_key, setting_value) VALUES (?,?)", (key, value))
+    conn.commit()
+    conn.close()
+
+def db_get_currency() -> str:
+    return db_get_bonus("currency") or "💰"
+
+def db_get_channel() -> dict:
+    conn = get_db()
+    row = conn.execute("SELECT * FROM channel_settings LIMIT 1").fetchone()
+    conn.close()
+    return dict(row) if row else {"channel_url": "", "channel_name": ""}
+
+def db_set_channel(url: str, name: str):
+    conn = get_db()
+    conn.execute("DELETE FROM channel_settings")
+    conn.execute("INSERT INTO channel_settings (channel_url, channel_name) VALUES (?,?)", (url, name))
+    conn.commit()
+    conn.close()
+
+def db_get_flyer_key() -> str:
+    conn = get_db()
+    row = conn.execute("SELECT flyer_key FROM flyer_settings WHERE id=1").fetchone()
+    conn.close()
+    return row["flyer_key"] if row else ""
+
+def db_set_flyer_key(key: str):
+    conn = get_db()
+    conn.execute("UPDATE flyer_settings SET flyer_key=? WHERE id=1", (key,))
+    conn.commit()
+    conn.close()
+
+def db_get_active_boosts(user_id: int) -> list:
+    conn = get_db()
+    now = datetime.now(timezone.utc).isoformat()
+    rows = conn.execute(
+        "SELECT * FROM active_boosts WHERE user_id=? AND (expires_at > ? OR expires_at = 'permanent')",
+        (user_id, now)
+    ).fetchall()
+    conn.close()
+    return [dict(r) for r in rows]
+
+def db_add_boost(user_id: int, boost_type: str, boost_value: float, duration_minutes: int = 0):
+    conn = get_db()
+    if duration_minutes > 0:
+        expires = (datetime.now(timezone.utc) + timedelta(minutes=duration_minutes)).isoformat()
+    else:
+        expires = "permanent"
+    conn.execute(
+        "INSERT INTO active_boosts (user_id, boost_type, boost_value, expires_at) VALUES (?,?,?,?)",
+        (user_id, boost_type, boost_value, expires)
+    )
+    conn.commit()
+    conn.close()
+
+def db_cleanup_boosts():
+    conn = get_db()
+    now = datetime.now(timezone.utc).isoformat()
+    conn.execute("DELETE FROM active_boosts WHERE expires_at != 'permanent' AND expires_at < ?", (now,))
+    conn.commit()
+    conn.close()
+
+def db_get_active_promo() -> Optional[dict]:
+    conn = get_db()
+    row = conn.execute("SELECT * FROM promo_ads WHERE is_active=1 LIMIT 1").fetchone()
+    conn.close()
+    return dict(row) if row else None
+
+def db_get_all_promos() -> list:
+    conn = get_db()
+    rows = conn.execute("SELECT * FROM promo_ads ORDER BY id DESC").fetchall()
+    conn.close()
+    return [dict(r) for r in rows]
+
+def db_create_withdrawal(user_id: int, amount: float, username: str) -> int:
+    conn = get_db()
+    now = datetime.now(timezone.utc).isoformat()
+    c = conn.execute(
+        "INSERT INTO withdrawal_requests (user_id, amount, telegram_username, status, created_at) VALUES (?,?,?,?,?)",
+        (user_id, amount, username, "pending", now)
+    )
+    wid = c.lastrowid
+    conn.commit()
+    conn.close()
+    return wid
+
+def db_get_pending_withdrawals() -> list:
+    conn = get_db()
+    rows = conn.execute("SELECT * FROM withdrawal_requests WHERE status='pending' ORDER BY id DESC").fetchall()
+    conn.close()
+    return [dict(r) for r in rows]
+
+def db_get_user_withdrawals(user_id: int, limit: int = 10) -> list:
+    conn = get_db()
+    rows = conn.execute(
+        "SELECT * FROM withdrawal_requests WHERE user_id=? ORDER BY id DESC LIMIT ?",
+        (user_id, limit)
+    ).fetchall()
+    conn.close()
+    return [dict(r) for r in rows]
+
+def db_process_withdrawal(wid: int, status: str, admin_id: int):
+    conn = get_db()
+    now = datetime.now(timezone.utc).isoformat()
+    conn.execute(
+        "UPDATE withdrawal_requests SET status=?, admin_id=?, processed_at=? WHERE id=?",
+        (status, admin_id, now, wid)
+    )
+    conn.commit()
+    conn.close()
+
+def db_get_withdrawal(wid: int) -> Optional[dict]:
+    conn = get_db()
+    row = conn.execute("SELECT * FROM withdrawal_requests WHERE id=?", (wid,)).fetchone()
+    conn.close()
+    return dict(row) if row else None
+
+def db_get_all_users() -> list:
+    conn = get_db()
+    rows = conn.execute("SELECT * FROM users ORDER BY created_at DESC").fetchall()
+    conn.close()
+    return [dict(r) for r in rows]
+
+def db_get_recent_users(limit: int = 10) -> list:
+    conn = get_db()
+    rows = conn.execute("SELECT * FROM users ORDER BY created_at DESC LIMIT ?", (limit,)).fetchall()
+    conn.close()
+    return [dict(r) for r in rows]
+
+def db_get_referral_count(user_id: int) -> int:
+    conn = get_db()
+    row = conn.execute("SELECT COUNT(*) as cnt FROM users WHERE referred_by=?", (user_id,)).fetchone()
+    conn.close()
+    return row["cnt"] if row else 0
+
+def db_get_stats() -> dict:
+    conn = get_db()
+    total_users = conn.execute("SELECT COUNT(*) as c FROM users").fetchone()["c"]
+    total_coins = conn.execute("SELECT COALESCE(SUM(balance), 0) as c FROM users").fetchone()["c"]
+    pending_w = conn.execute("SELECT COUNT(*) as c FROM withdrawal_requests WHERE status='pending'").fetchone()["c"]
+    total_w = conn.execute("SELECT COUNT(*) as c FROM withdrawal_requests").fetchone()["c"]
+    conn.close()
+    return {
+        "total_users": total_users,
+        "total_coins": round(total_coins, 2),
+        "pending_withdrawals": pending_w,
+        "total_withdrawals": total_w,
+    }
+
+# ============================================================
+# 6. FLYER API
+# ============================================================
+async def check_flyer(user_id: int, language_code: str = "ru") -> bool:
+    """Проверка через Flyer API. True = пропускаем дальше."""
+    flyer_key = db_get_flyer_key()
+    if not flyer_key or not FLYER_AVAILABLE:
+        return True
+    try:
+        flyer = Flyer(flyer_key)
+        result = await asyncio.to_thread(flyer.check, user_id, language_code)
+        return bool(result)
+    except Exception as e:
+        logger.warning(f"Flyer API error: {e}")
+        return True
+
+# ============================================================
+# 6b. HIVIEWS MIDDLEWARE
+# ============================================================
+class HiViewsMiddleware(BaseMiddleware):
+    """Middleware для отправки данных в HiViews API."""
+
+    async def __call__(self, handler, event, data):
+        if HIVIEWS_API_KEY:
+            try:
+                await self._send_hiviews(event)
+            except Exception as e:
+                logger.warning(f"HiViews error: {e}")
+        return await handler(event, data)
+
+    async def _send_hiviews(self, event):
+        user = None
+        message_id = 0
+        is_start = False
+
+        if isinstance(event, Message):
+            user = event.from_user
+            message_id = event.message_id
+            if event.text and event.text.startswith("/start"):
+                is_start = True
+        elif isinstance(event, CallbackQuery):
+            user = event.from_user
+            message_id = event.message.message_id if event.message else 0
+
+        if not user:
+            return
+
+        payload = {
+            "UserId": str(user.id),
+            "MessageId": str(message_id),
+            "UserFirstName": user.first_name or "",
+            "LanguageCode": user.language_code or "ru",
+            "StartPlace": str(is_start),
+        }
+
+        async with aiohttp.ClientSession() as session:
+            await session.post(
+                "https://hiviews.net/sendMessage",
+                json=payload,
+                headers={"Authorization": HIVIEWS_API_KEY},
+                timeout=aiohttp.ClientTimeout(total=5),
+            )
+
+# ============================================================
+# 7. КЛАВИАТУРЫ
+# ============================================================
+def main_menu_kb() -> ReplyKeyboardMarkup:
+    cur = db_get_currency()
+    return ReplyKeyboardMarkup(
+        keyboard=[
+            [KeyboardButton(text="🪙 Майнить"), KeyboardButton(text="👤 Личный кабинет")],
+            [KeyboardButton(text="🎁 Ежедневный бонус"), KeyboardButton(text="📊 Статистика")],
+            [KeyboardButton(text="🛒 Магазин")],
+        ],
+        resize_keyboard=True
+    )
+
+def mining_menu_kb() -> ReplyKeyboardMarkup:
+    return ReplyKeyboardMarkup(
+        keyboard=[
+            [KeyboardButton(text="⛏️ Майнинг"), KeyboardButton(text="👆 Тап")],
+            [KeyboardButton(text="🔙 Назад")],
+        ],
+        resize_keyboard=True
+    )
+
+def tap_menu_kb() -> ReplyKeyboardMarkup:
+    return ReplyKeyboardMarkup(
+        keyboard=[
+            [KeyboardButton(text="👆 Тапнуть"), KeyboardButton(text="📊 Статистика тапов")],
+            [KeyboardButton(text="🔙 В майнинг")],
+        ],
+        resize_keyboard=True
+    )
+
+def profile_menu_kb() -> ReplyKeyboardMarkup:
+    return ReplyKeyboardMarkup(
+        keyboard=[
+            [KeyboardButton(text="👥 Рефералы"), KeyboardButton(text="💸 Вывод средств")],
+            [KeyboardButton(text="📋 Мои заявки"), KeyboardButton(text="📢 Новости")],
+            [KeyboardButton(text="🔙 Назад")],
+        ],
+        resize_keyboard=True
+    )
+
+def shop_kb() -> ReplyKeyboardMarkup:
+    cur = db_get_currency()
+    return ReplyKeyboardMarkup(
+        keyboard=[
+            [KeyboardButton(text=f"🚀 Буст +10% (1000 {cur})")],
+            [KeyboardButton(text=f"⚡ Буст x2 (2500 {cur})")],
+            [KeyboardButton(text=f"💎 +500 тапов (10000 {cur})")],
+            [KeyboardButton(text="🔙 Назад")],
+        ],
+        resize_keyboard=True
+    )
+
+def tap_inline_kb() -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="🖱️ Клик", callback_data="tap:click")]
+    ])
+
+def withdrawal_kb() -> InlineKeyboardMarkup:
+    cur = db_get_currency()
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [
+            InlineKeyboardButton(text=f"100 {cur}", callback_data="withdraw:100"),
+            InlineKeyboardButton(text=f"500 {cur}", callback_data="withdraw:500"),
+        ],
+        [
+            InlineKeyboardButton(text=f"1000 {cur}", callback_data="withdraw:1000"),
+            InlineKeyboardButton(text=f"5000 {cur}", callback_data="withdraw:5000"),
+        ],
+        [InlineKeyboardButton(text="✏️ Своя сумма", callback_data="withdraw:custom")],
+    ])
+
+def admin_menu_kb() -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [
+            InlineKeyboardButton(text="📋 Заявки", callback_data="admin:withdrawals"),
+            InlineKeyboardButton(text="📢 Рассылка", callback_data="admin:broadcast"),
+        ],
+        [
+            InlineKeyboardButton(text="💰 Балансы", callback_data="admin:balances"),
+            InlineKeyboardButton(text="🎁 Бонусы", callback_data="admin:bonuses"),
+        ],
+        [
+            InlineKeyboardButton(text="💱 Курс", callback_data="admin:rate"),
+            InlineKeyboardButton(text="📢 Канал", callback_data="admin:channel"),
+        ],
+        [
+            InlineKeyboardButton(text="🔑 Flyer API", callback_data="admin:flyer"),
+            InlineKeyboardButton(text="📊 Статистика", callback_data="admin:stats"),
+        ],
+        [
+            InlineKeyboardButton(text="👥 Юзеры", callback_data="admin:users"),
+            InlineKeyboardButton(text="🎯 Промо-реклама", callback_data="admin:promo"),
+        ],
+    ])
+
+# ============================================================
+# 8. FSM КЛАССЫ
+# ============================================================
+class WithdrawCustom(StatesGroup):
+    amount = State()
+
+class AdminBroadcast(StatesGroup):
+    content = State()
+    confirm = State()
+
+class AdminBalance(StatesGroup):
+    select_user = State()
+    enter_amount = State()
+
+class AdminBonusEdit(StatesGroup):
+    select_key = State()
+    enter_value = State()
+
+class AdminRateEdit(StatesGroup):
+    enter_rate = State()
+
+class AdminChannelEdit(StatesGroup):
+    enter_url = State()
+    enter_name = State()
+
+class AdminFlyerEdit(StatesGroup):
+    enter_key = State()
+
+class AdminPromoCreate(StatesGroup):
+    line1 = State()
+    line2 = State()
+    line3 = State()
+    button_text = State()
+    button_url = State()
+
+class AdminWithdrawLink(StatesGroup):
+    enter_link = State()
+
+# ============================================================
+# 9. РОУТЕР И ХЕНДЛЕРЫ
+# ============================================================
+router = Router()
+
+def progress_bar(current: int, total: int, length: int = 10) -> str:
+    filled = int(length * current / total) if total > 0 else 0
+    filled = min(filled, length)
+    return "🟦" * filled + "⬜" * (length - filled)
+
+def time_left_str(target_iso: str) -> str:
+    """Возвращает строку 'Xч Yм' до момента target."""
+    try:
+        target = datetime.fromisoformat(target_iso)
+        if target.tzinfo is None:
+            target = target.replace(tzinfo=timezone.utc)
+        now = datetime.now(timezone.utc)
+        diff = target - now
+        if diff.total_seconds() <= 0:
+            return "Готово!"
+        hours = int(diff.total_seconds() // 3600)
+        minutes = int((diff.total_seconds() % 3600) // 60)
+        return f"{hours}ч {minutes}м"
+    except Exception:
+        return "Готово!"
+
+# ----- /start -----
+@router.message(CommandStart())
+async def cmd_start(message: Message, state: FSMContext):
+    await state.clear()
+    user = message.from_user
+    lang = user.language_code or "ru"
+
+    # Проверка Flyer
+    passed = await check_flyer(user.id, lang)
+    if not passed:
+        return
+
+    # Регистрация
+    existing = db_get_user(user.id)
+    ref_id = 0
+    if message.text and "ref_" in message.text:
+        try:
+            ref_id = int(message.text.split("ref_")[1])
+        except (ValueError, IndexError):
+            ref_id = 0
+
+    if not existing:
+        db_create_user(user.id, user.username or '', user.full_name or '', ref_id)
+        logger.info(f"Новый пользователь: {user.id} ({user.username}), реферер: {ref_id}")
+
+    cur = db_get_currency()
+    await message.answer(
+        f"⛏️ <b>Добро пожаловать в CryptoMiner!</b>\\n\\n"
+        f"Зарабатывай {cur} монеты майнингом и тапами!\\n"
+        f"Приглашай друзей и получай бонусы! 🎁\\n\\n"
+        f"Используй меню ниже для навигации 👇",
+        reply_markup=main_menu_kb(),
+        parse_mode="HTML"
+    )
+
+# ----- Главное меню -----
+@router.message(F.text == "🔙 Назад")
+async def go_back(message: Message, state: FSMContext):
+    await state.clear()
+    await message.answer("🏠 Главное меню", reply_markup=main_menu_kb())
+
+# ----- Майнинг меню -----
+@router.message(F.text == "🪙 Майнить")
+async def mining_menu(message: Message):
+    await message.answer("⛏️ Выбери действие:", reply_markup=mining_menu_kb())
+
+@router.message(F.text == "🔙 В майнинг")
+async def back_to_mining(message: Message):
+    await message.answer("⛏️ Меню майнинга:", reply_markup=mining_menu_kb())
+
+# ----- Майнинг (пассивный) -----
+@router.message(F.text == "⛏️ Майнинг")
+async def mining_action(message: Message):
+    user_id = message.from_user.id
+    user = db_get_user(user_id)
+    if not user:
+        await message.answer("❌ Сначала нажмите /start")
+        return
+
+    cur = db_get_currency()
+    reward = float(db_get_bonus("mining_reward"))
+    last_claim = user["last_mining_claim"]
+    now = datetime.now(timezone.utc)
+
+    can_claim = True
+    if last_claim:
+        try:
+            last_dt = datetime.fromisoformat(last_claim)
+            if last_dt.tzinfo is None:
+                last_dt = last_dt.replace(tzinfo=timezone.utc)
+            next_claim = last_dt + timedelta(hours=24)
+            if now < next_claim:
+                can_claim = False
+                elapsed = (now - last_dt).total_seconds()
+                total = 24 * 3600
+                pbar = progress_bar(int(elapsed), total, 10)
+                tl = time_left_str(next_claim.isoformat())
+                await message.answer(
+                    f"⛏️ <b>Майнинг</b>\\n\\n"
+                    f"Прогресс: {pbar}\\n"
+                    f"⏰ До следующего сбора: <b>{tl}</b>\\n\\n"
+                    f"Награда: <b>{reward}</b> {cur}",
+                    parse_mode="HTML"
+                )
+                return
+        except Exception:
+            can_claim = True
+
+    # Учёт бустов
+    boosts = db_get_active_boosts(user_id)
+    bonus_pct = 0
+    for b in boosts:
+        if b["boost_type"] == "mining_boost":
+            bonus_pct += b["boost_value"]
+
+    final_reward = reward * (1 + bonus_pct / 100)
+    final_reward = round(final_reward, 2)
+
+    conn = get_db()
+    conn.execute("UPDATE users SET last_mining_claim=? WHERE user_id=?", (now.isoformat(), user_id))
+    conn.commit()
+    conn.close()
+    db_update_balance(user_id, final_reward, "mining")
+
+    boost_text = f" (+{bonus_pct}% буст)" if bonus_pct > 0 else ""
+    await message.answer(
+        f"⛏️ <b>Майнинг завершён!</b>\\n\\n"
+        f"Получено: <b>+{final_reward}</b> {cur}{boost_text}\\n"
+        f"Следующий сбор через 24 часа ⏰",
+        parse_mode="HTML"
+    )
+
+# ----- Тапы -----
+@router.message(F.text == "👆 Тап")
+async def tap_menu_handler(message: Message):
+    await message.answer("👆 Меню тапов:", reply_markup=tap_menu_kb())
+
+@router.message(F.text == "👆 Тапнуть")
+async def start_tapping(message: Message):
+    user_id = message.from_user.id
+    user = db_get_user(user_id)
+    if not user:
+        await message.answer("❌ Сначала нажмите /start")
+        return
+
+    cur = db_get_currency()
+    limit = int(db_get_bonus("daily_click_limit"))
+
+    # Учёт буста +500 тапов
+    boosts = db_get_active_boosts(user_id)
+    for b in boosts:
+        if b["boost_type"] == "tap_limit":
+            limit += int(b["boost_value"])
+
+    taps = user["taps_today"]
+    remaining = max(0, limit - taps)
+
+    await message.answer(
+        f"👆 <b>Тапер</b>\\n\\n"
+        f"Кликов сегодня: <b>{taps}/{limit}</b>\\n"
+        f"Осталось: <b>{remaining}</b>\\n\\n"
+        f"Нажимай кнопку ниже! 👇",
+        reply_markup=tap_inline_kb(),
+        parse_mode="HTML"
+    )
+
+@router.callback_query(F.data == "tap:click")
+async def tap_click(callback: CallbackQuery):
+    user_id = callback.from_user.id
+    user = db_get_user(user_id)
+    if not user:
+        await callback.answer("❌ Нажмите /start", show_alert=True)
+        return
+
+    cur = db_get_currency()
+    now = datetime.now(timezone.utc)
+
+    # Проверка блокировки
+    block_until = user.get("click_block_until", "")
+    if block_until:
+        try:
+            block_dt = datetime.fromisoformat(block_until)
+            if block_dt.tzinfo is None:
+                block_dt = block_dt.replace(tzinfo=timezone.utc)
+            if now < block_dt:
+                secs = int((block_dt - now).total_seconds())
+                await callback.answer(f"⏳ Подожди {secs} сек.", show_alert=True)
+                return
+        except Exception:
+            pass
+
+    limit = int(db_get_bonus("daily_click_limit"))
+    boosts = db_get_active_boosts(user_id)
+    tap_multiplier = 1
+    for b in boosts:
+        if b["boost_type"] == "tap_limit":
+            limit += int(b["boost_value"])
+        if b["boost_type"] == "tap_multiplier":
+            tap_multiplier = int(b["boost_value"])
+
+    taps = user["taps_today"]
+    if taps >= limit:
+        await callback.answer(f"❌ Лимит тапов исчерпан ({limit}/{limit})", show_alert=True)
+        return
+
+    reward = float(db_get_bonus("tap_reward")) * tap_multiplier
+    taps += 1
+
+    conn = get_db()
+    # Каждые 10 кликов — блокировка 4 сек
+    if taps % 10 == 0:
+        block_time = (now + timedelta(seconds=4)).isoformat()
+        conn.execute("UPDATE users SET taps_today=?, click_block_until=? WHERE user_id=?",
+                     (taps, block_time, user_id))
+    else:
+        conn.execute("UPDATE users SET taps_today=? WHERE user_id=?", (taps, user_id))
+    conn.commit()
+    conn.close()
+
+    db_update_balance(user_id, reward, "tap")
+
+    remaining = max(0, limit - taps)
+    pbar = progress_bar(taps, limit, 10)
+
+    text = (
+        f"👆 <b>Тап!</b> +{reward} {cur}\\n\\n"
+        f"Прогресс: {pbar}\\n"
+        f"Кликов: <b>{taps}/{limit}</b> | Осталось: <b>{remaining}</b>"
+    )
+
+    # Промо каждые 10 кликов
+    if taps % 10 == 0:
+        promo = db_get_active_promo()
+        if promo:
+            text += (
+                f"\\n\\n📢 <b>{promo['line1']}</b>\\n"
+                f"{promo['line2']}\\n"
+                f"{promo['line3']}"
+            )
+            kb = InlineKeyboardMarkup(inline_keyboard=[
+                [InlineKeyboardButton(text=promo["button_text"], url=promo["button_url"])],
+                [InlineKeyboardButton(text="🖱️ Клик", callback_data="tap:click")],
+            ])
+        else:
+            text += "\\n\\n⏳ <i>Пауза 4 сек...</i>"
+            kb = tap_inline_kb()
+    else:
+        kb = tap_inline_kb()
+
+    try:
+        await callback.message.edit_text(text, reply_markup=kb, parse_mode="HTML")
+    except Exception:
+        pass
+    await callback.answer(f"+{reward} {cur}")
+
+@router.message(F.text == "📊 Статистика тапов")
+async def tap_stats(message: Message):
+    user = db_get_user(message.from_user.id)
+    if not user:
+        await message.answer("❌ Нажмите /start")
+        return
+    cur = db_get_currency()
+    limit = int(db_get_bonus("daily_click_limit"))
+    boosts = db_get_active_boosts(message.from_user.id)
+    for b in boosts:
+        if b["boost_type"] == "tap_limit":
+            limit += int(b["boost_value"])
+    taps = user["taps_today"]
+    pbar = progress_bar(taps, limit, 10)
+    await message.answer(
+        f"📊 <b>Статистика тапов</b>\\n\\n"
+        f"Кликов сегодня: <b>{taps}/{limit}</b>\\n"
+        f"Прогресс: {pbar}\\n"
+        f"Награда за клик: <b>{db_get_bonus('tap_reward')}</b> {cur}",
+        parse_mode="HTML"
+    )
+
+# ----- Ежедневный бонус -----
+@router.message(F.text == "🎁 Ежедневный бонус")
+async def daily_bonus(message: Message):
+    user_id = message.from_user.id
+    user = db_get_user(user_id)
+    if not user:
+        await message.answer("❌ Нажмите /start")
+        return
+
+    cur = db_get_currency()
+    bonus = float(db_get_bonus("daily_bonus"))
+    now = datetime.now(timezone.utc)
+    last_claim = user["last_daily_claim"]
+
+    if last_claim:
+        try:
+            last_dt = datetime.fromisoformat(last_claim)
+            if last_dt.tzinfo is None:
+                last_dt = last_dt.replace(tzinfo=timezone.utc)
+            if (now - last_dt).total_seconds() < 86400:
+                next_time = last_dt + timedelta(hours=24)
+                tl = time_left_str(next_time.isoformat())
+                await message.answer(
+                    f"🎁 <b>Ежедневный бонус</b>\\n\\n"
+                    f"Уже получен сегодня!\\n"
+                    f"⏰ Следующий через: <b>{tl}</b>\\n"
+                    f"🔥 Серия: <b>{user['daily_streak']}</b> дней",
+                    parse_mode="HTML"
+                )
+                return
+        except Exception:
+            pass
+
+    # Начисляем
+    conn = get_db()
+    streak = user["daily_streak"] + 1
+    conn.execute(
+        "UPDATE users SET last_daily_claim=?, daily_streak=? WHERE user_id=?",
+        (now.isoformat(), streak, user_id)
+    )
+    conn.commit()
+    conn.close()
+    db_update_balance(user_id, bonus, "daily_bonus")
+
+    # Реферальный бонус при первом получении бонуса рефералом
+    if user["referred_by"] and not user["is_referral_claimed"]:
+        ref_bonus = float(db_get_bonus("referral_bonus"))
+        db_update_balance(user["referred_by"], ref_bonus, "referral_bonus")
+        conn = get_db()
+        conn.execute("UPDATE users SET is_referral_claimed=1 WHERE user_id=?", (user_id,))
+        conn.commit()
+        conn.close()
+        logger.info(f"Реферальный бонус {ref_bonus} начислен пользователю {user['referred_by']} за {user_id}")
+
+    await message.answer(
+        f"🎁 <b>Ежедневный бонус получен!</b>\\n\\n"
+        f"Получено: <b>+{bonus}</b> {cur}\\n"
+        f"🔥 Серия: <b>{streak}</b> дней",
+        parse_mode="HTML"
+    )
+
+# ----- Статистика -----
+@router.message(F.text == "📊 Статистика")
+async def user_stats(message: Message):
+    user = db_get_user(message.from_user.id)
+    if not user:
+        await message.answer("❌ Нажмите /start")
+        return
+
+    cur = db_get_currency()
+    refs = db_get_referral_count(message.from_user.id)
+    boosts = db_get_active_boosts(message.from_user.id)
+
+    boost_text = ""
+    if boosts:
+        boost_text = "\\n\\n🚀 <b>Активные бусты:</b>\\n"
+        for b in boosts:
+            exp = "♾ Навсегда" if b["expires_at"] == "permanent" else time_left_str(b["expires_at"])
+            boost_text += f"  • {b['boost_type']}: +{b['boost_value']} ({exp})\\n"
+
+    await message.answer(
+        f"📊 <b>Ваша статистика</b>\\n\\n"
+        f"💰 Баланс: <b>{user['balance']}</b> {cur}\\n"
+        f"🔥 Серия: <b>{user['daily_streak']}</b> дней\\n"
+        f"👆 Тапов сегодня: <b>{user['taps_today']}</b>\\n"
+        f"👥 Рефералов: <b>{refs}</b>"
+        f"{boost_text}",
+        parse_mode="HTML"
+    )
+
+# ----- Личный кабинет -----
+@router.message(F.text == "👤 Личный кабинет")
+async def profile_menu(message: Message):
+    user = db_get_user(message.from_user.id)
+    if not user:
+        await message.answer("❌ Нажмите /start")
+        return
+    cur = db_get_currency()
+    await message.answer(
+        f"👤 <b>Личный кабинет</b>\\n\\n"
+        f"💰 Баланс: <b>{user['balance']}</b> {cur}",
+        reply_markup=profile_menu_kb(),
+        parse_mode="HTML"
+    )
+
+# ----- Рефералы -----
+@router.message(F.text == "👥 Рефералы")
+async def referrals(message: Message):
+    user_id = message.from_user.id
+    refs = db_get_referral_count(user_id)
+    cur = db_get_currency()
+    ref_bonus = db_get_bonus("referral_bonus")
+    bot_info = await message.bot.get_me()
+
+    await message.answer(
+        f"👥 <b>Реферальная программа</b>\\n\\n"
+        f"Ваша ссылка:\\n"
+        f"<code>https://t.me/{bot_info.username}?start=ref_{user_id}</code>\\n\\n"
+        f"Приглашено: <b>{refs}</b> чел.\\n"
+        f"Бонус за реферала: <b>{ref_bonus}</b> {cur}",
+        parse_mode="HTML"
+    )
+
+# ----- Вывод средств -----
+@router.message(F.text == "💸 Вывод средств")
+async def withdraw_menu(message: Message):
+    user = db_get_user(message.from_user.id)
+    if not user:
+        await message.answer("❌ Нажмите /start")
+        return
+    cur = db_get_currency()
+    rate = db_get_setting("exchange_rate")
+    await message.answer(
+        f"💸 <b>Вывод средств</b>\\n\\n"
+        f"Баланс: <b>{user['balance']}</b> {cur}\\n"
+        f"Курс: 1 {cur} = <b>{rate}</b> USDT\\n"
+        f"Минимум: <b>100</b> {cur}\\n\\n"
+        f"Выберите сумму:",
+        reply_markup=withdrawal_kb(),
+        parse_mode="HTML"
+    )
+
+@router.callback_query(F.data.startswith("withdraw:"))
+async def withdraw_callback(callback: CallbackQuery, state: FSMContext):
+    action = callback.data.split(":")[1]
+    user = db_get_user(callback.from_user.id)
+    if not user:
+        await callback.answer("❌ Нажмите /start", show_alert=True)
+        return
+
+    if action == "custom":
+        await state.set_state(WithdrawCustom.amount)
+        await callback.message.answer("✏️ Введите сумму для вывода:")
+        await callback.answer()
+        return
+
+    amount = float(action)
+    await process_withdrawal(callback.from_user.id, amount, callback.message, callback)
+
+@router.message(WithdrawCustom.amount)
+async def withdraw_custom_amount(message: Message, state: FSMContext):
+    try:
+        amount = float(message.text)
+    except ValueError:
+        await message.answer("❌ Введите число!")
+        return
+    await state.clear()
+    await process_withdrawal(message.from_user.id, amount, message)
+
+async def process_withdrawal(user_id: int, amount: float, message: Message, callback: CallbackQuery = None):
+    user = db_get_user(user_id)
+    cur = db_get_currency()
+
+    if amount < 100:
+        text = f"❌ Минимальная сумма: 100 {cur}"
+        if callback:
+            await callback.answer(text, show_alert=True)
+        else:
+            await message.answer(text)
+        return
+
+    if user["balance"] < amount:
+        text = f"❌ Недостаточно средств! Баланс: {user['balance']} {cur}"
+        if callback:
+            await callback.answer(text, show_alert=True)
+        else:
+            await message.answer(text)
+        return
+
+    # Резервируем средства
+    db_update_balance(user_id, -amount, "withdrawal_reserve")
+    username = user.get("username", "") or str(user_id)
+    wid = db_create_withdrawal(user_id, amount, username)
+
+    rate = float(db_get_setting("exchange_rate") or "0.001")
+    usdt = round(amount * rate, 4)
+
+    if callback:
+        await callback.answer("✅ Заявка создана!")
+
+    await message.answer(
+        f"✅ <b>Заявка на вывод #{wid}</b>\\n\\n"
+        f"Сумма: <b>{amount}</b> {cur} (~{usdt} USDT)\\n"
+        f"Статус: ⏳ Ожидает обработки\\n\\n"
+        f"Администратор рассмотрит вашу заявку.",
+        parse_mode="HTML"
+    )
+
+    # Уведомление админам
+    bot = message.bot
+    for admin_id in ADMIN_IDS:
+        try:
+            kb = InlineKeyboardMarkup(inline_keyboard=[
+                [
+                    InlineKeyboardButton(text="✅ Одобрить", callback_data=f"admin:approve:{wid}"),
+                    InlineKeyboardButton(text="❌ Отклонить", callback_data=f"admin:reject:{wid}"),
+                ]
+            ])
+            await bot.send_message(
+                admin_id,
+                f"🔔 <b>Новая заявка на вывод #{wid}</b>\\n\\n"
+                f"Пользователь: @{username} (ID: {user_id})\\n"
+                f"Сумма: <b>{amount}</b> {cur} (~{usdt} USDT)\\n",
+                reply_markup=kb,
+                parse_mode="HTML"
+            )
+        except Exception as e:
+            logger.warning(f"Не удалось уведомить админа {admin_id}: {e}")
+
+# ----- Мои заявки -----
+@router.message(F.text == "📋 Мои заявки")
+async def my_withdrawals(message: Message):
+    user_id = message.from_user.id
+    wds = db_get_user_withdrawals(user_id, 10)
+    if not wds:
+        await message.answer("📋 У вас нет заявок на вывод.")
+        return
+
+    cur = db_get_currency()
+    text = "📋 <b>Ваши заявки:</b>\\n\\n"
+    status_map = {"pending": "⏳", "approved": "✅", "rejected": "❌"}
+    for w in wds:
+        s = status_map.get(w["status"], "❓")
+        text += f"#{w['id']} | {w['amount']} {cur} | {s} {w['status']}\\n"
+
+    await message.answer(text, parse_mode="HTML")
+
+# ----- Новости -----
+@router.message(F.text == "📢 Новости")
+async def news(message: Message):
+    ch = db_get_channel()
+    if ch["channel_url"]:
+        await message.answer(
+            f"📢 <b>Новости</b>\\n\\n"
+            f"Подписывайтесь на наш канал:\\n"
+            f"{ch['channel_name']}: {ch['channel_url']}",
+            parse_mode="HTML"
+        )
+    else:
+        await message.answer("📢 Канал ещё не настроен.")
+
+# ----- Магазин -----
+@router.message(F.text == "🛒 Магазин")
+async def shop(message: Message):
+    cur = db_get_currency()
+    await message.answer(
+        f"🛒 <b>Магазин бустов</b>\\n\\n"
+        f"🚀 <b>Буст +10%</b> — 1000 {cur}\\n"
+        f"   Увеличивает доход от майнинга на 10% (1 час)\\n\\n"
+        f"⚡ <b>Буст x2</b> — 2500 {cur}\\n"
+        f"   Удваивает доход от тапов (30 мин)\\n\\n"
+        f"💎 <b>+500 тапов</b> — 10000 {cur}\\n"
+        f"   Увеличивает дневной лимит тапов навсегда\\n",
+        reply_markup=shop_kb(),
+        parse_mode="HTML"
+    )
+
+@router.message(F.text.startswith("🚀 Буст +10%"))
+async def buy_mining_boost(message: Message):
+    await buy_boost(message, "mining_boost", 10, 1000, 60)
+
+@router.message(F.text.startswith("⚡ Буст x2"))
+async def buy_tap_boost(message: Message):
+    await buy_boost(message, "tap_multiplier", 2, 2500, 30)
+
+@router.message(F.text.startswith("💎 +500 тапов"))
+async def buy_tap_limit(message: Message):
+    await buy_boost(message, "tap_limit", 500, 10000, 0)
+
+async def buy_boost(message: Message, boost_type: str, value: float, cost: float, duration: int):
+    user = db_get_user(message.from_user.id)
+    cur = db_get_currency()
+    if not user:
+        await message.answer("❌ Нажмите /start")
+        return
+    if user["balance"] < cost:
+        await message.answer(f"❌ Недостаточно средств! Нужно: {cost} {cur}, баланс: {user['balance']} {cur}")
+        return
+
+    db_update_balance(message.from_user.id, -cost, "boost_purchase")
+    db_add_boost(message.from_user.id, boost_type, value, duration)
+
+    dur_text = f"{duration} мин" if duration > 0 else "навсегда"
+    await message.answer(
+        f"✅ <b>Буст куплен!</b>\\n\\n"
+        f"Тип: <b>{boost_type}</b>\\n"
+        f"Значение: <b>+{value}</b>\\n"
+        f"Длительность: <b>{dur_text}</b>\\n"
+        f"Списано: <b>{cost}</b> {cur}",
+        parse_mode="HTML"
+    )
+
+# ============================================================
+# 10. АДМИН-ХЕНДЛЕРЫ
+# ============================================================
+
+def is_admin(user_id: int) -> bool:
+    return user_id in ADMIN_IDS
+
+@router.message(Command("admin"))
+async def admin_panel(message: Message, state: FSMContext):
+    if not is_admin(message.from_user.id):
+        return
+    await state.clear()
+    await message.answer("🔧 <b>Админ-панель</b>", reply_markup=admin_menu_kb(), parse_mode="HTML")
+
+# --- Заявки ---
+@router.callback_query(F.data == "admin:withdrawals")
+async def admin_withdrawals(callback: CallbackQuery):
+    if not is_admin(callback.from_user.id):
+        return
+    wds = db_get_pending_withdrawals()
+    if not wds:
+        await callback.message.edit_text("📋 Нет ожидающих заявок.", reply_markup=admin_menu_kb())
+        await callback.answer()
+        return
+
+    cur = db_get_currency()
+    text = "📋 <b>Заявки на вывод:</b>\\n\\n"
+    buttons = []
+    for w in wds[:10]:
+        text += f"#{w['id']} | @{w['telegram_username']} | {w['amount']} {cur}\\n"
+        buttons.append([
+            InlineKeyboardButton(text=f"✅ #{w['id']}", callback_data=f"admin:approve:{w['id']}"),
+            InlineKeyboardButton(text=f"❌ #{w['id']}", callback_data=f"admin:reject:{w['id']}"),
+        ])
+    buttons.append([InlineKeyboardButton(text="🔙 Назад", callback_data="admin:back")])
+    kb = InlineKeyboardMarkup(inline_keyboard=buttons)
+    await callback.message.edit_text(text, reply_markup=kb, parse_mode="HTML")
+    await callback.answer()
+
+@router.callback_query(F.data.startswith("admin:approve:"))
+async def admin_approve(callback: CallbackQuery, state: FSMContext):
+    if not is_admin(callback.from_user.id):
+        return
+    wid = int(callback.data.split(":")[2])
+    w = db_get_withdrawal(wid)
+    if not w or w["status"] != "pending":
+        await callback.answer("Заявка уже обработана", show_alert=True)
+        return
+
+    await state.set_state(AdminWithdrawLink.enter_link)
+    await state.update_data(wid=wid)
+    await callback.message.answer(f"🔗 Введите ссылку на выплату для заявки #{wid}:")
+    await callback.answer()
+
+@router.message(AdminWithdrawLink.enter_link)
+async def admin_withdraw_link(message: Message, state: FSMContext):
+    if not is_admin(message.from_user.id):
+        return
+    data = await state.get_data()
+    wid = data["wid"]
+    link = message.text.strip()
+    await state.clear()
+
+    w = db_get_withdrawal(wid)
+    if not w:
+        await message.answer("❌ Заявка не найдена.")
+        return
+
+    db_process_withdrawal(wid, "approved", message.from_user.id)
+
+    # Уведомление пользователю
+    try:
+        cur = db_get_currency()
+        await message.bot.send_message(
+            w["user_id"],
+            f"✅ <b>Заявка #{wid} одобрена!</b>\\n\\n"
+            f"Сумма: <b>{w['amount']}</b> {cur}\\n"
+            f"Ссылка на выплату: {link}",
+            parse_mode="HTML"
+        )
+    except Exception as e:
+        logger.warning(f"Не удалось уведомить пользователя: {e}")
+
+    await message.answer(f"✅ Заявка #{wid} одобрена. Пользователь уведомлён.")
+
+@router.callback_query(F.data.startswith("admin:reject:"))
+async def admin_reject(callback: CallbackQuery):
+    if not is_admin(callback.from_user.id):
+        return
+    wid = int(callback.data.split(":")[2])
+    w = db_get_withdrawal(wid)
+    if not w or w["status"] != "pending":
+        await callback.answer("Заявка уже обработана", show_alert=True)
+        return
+
+    db_process_withdrawal(wid, "rejected", callback.from_user.id)
+    # Возврат средств
+    db_update_balance(w["user_id"], w["amount"], "withdrawal_refund")
+
+    try:
+        cur = db_get_currency()
+        await callback.bot.send_message(
+            w["user_id"],
+            f"❌ <b>Заявка #{wid} отклонена</b>\\n\\n"
+            f"Сумма <b>{w['amount']}</b> {cur} возвращена на баланс.",
+            parse_mode="HTML"
+        )
+    except Exception as e:
+        logger.warning(f"Не удалось уведомить: {e}")
+
+    await callback.answer(f"Заявка #{wid} отклонена", show_alert=True)
+    await admin_withdrawals(callback)
+
+# --- Рассылка ---
+@router.callback_query(F.data == "admin:broadcast")
+async def admin_broadcast_start(callback: CallbackQuery, state: FSMContext):
+    if not is_admin(callback.from_user.id):
+        return
+    await state.set_state(AdminBroadcast.content)
+    await callback.message.answer(
+        "📢 <b>Рассылка</b>\\n\\nОтправьте текст или фото с подписью для рассылки:",
+        parse_mode="HTML"
+    )
+    await callback.answer()
+
+@router.message(AdminBroadcast.content)
+async def admin_broadcast_content(message: Message, state: FSMContext):
+    if not is_admin(message.from_user.id):
+        return
+
+    if message.photo:
+        await state.update_data(photo=message.photo[-1].file_id, text=message.caption or "")
+    else:
+        await state.update_data(photo=None, text=message.text or "")
+
+    await state.set_state(AdminBroadcast.confirm)
+    kb = InlineKeyboardMarkup(inline_keyboard=[
+        [
+            InlineKeyboardButton(text="✅ Отправить", callback_data="admin:broadcast:confirm"),
+            InlineKeyboardButton(text="❌ Отмена", callback_data="admin:broadcast:cancel"),
+        ]
+    ])
+    await message.answer("Подтвердите рассылку:", reply_markup=kb)
+
+@router.callback_query(F.data == "admin:broadcast:confirm", AdminBroadcast.confirm)
+async def admin_broadcast_confirm(callback: CallbackQuery, state: FSMContext):
+    if not is_admin(callback.from_user.id):
+        return
+    data = await state.get_data()
+    await state.clear()
+
+    users = db_get_all_users()
+    sent = 0
+    failed = 0
+    for u in users:
+        try:
+            if data.get("photo"):
+                await callback.bot.send_photo(
+                    u["user_id"], data["photo"], caption=data.get("text", "")
+                )
+            else:
+                await callback.bot.send_message(u["user_id"], data.get("text", ""))
+            sent += 1
+        except Exception:
+            failed += 1
+        await asyncio.sleep(0.05)
+
+    await callback.message.answer(f"📢 Рассылка завершена!\\n✅ Отправлено: {sent}\\n❌ Ошибок: {failed}")
+    await callback.answer()
+
+@router.callback_query(F.data == "admin:broadcast:cancel")
+async def admin_broadcast_cancel(callback: CallbackQuery, state: FSMContext):
+    await state.clear()
+    await callback.message.answer("❌ Рассылка отменена.")
+    await callback.answer()
+
+# --- Балансы ---
+@router.callback_query(F.data == "admin:balances")
+async def admin_balances(callback: CallbackQuery, state: FSMContext):
+    if not is_admin(callback.from_user.id):
+        return
+    users = db_get_recent_users(15)
+    if not users:
+        await callback.message.edit_text("Нет пользователей.", reply_markup=admin_menu_kb())
+        await callback.answer()
+        return
+
+    buttons = []
+    for u in users:
+        name = u["username"] or u["full_name"] or str(u["user_id"])
+        buttons.append([
+            InlineKeyboardButton(
+                text=f"{name} ({u['balance']})",
+                callback_data=f"admin:bal_user:{u['user_id']}"
+            )
+        ])
+    buttons.append([InlineKeyboardButton(text="🔙 Назад", callback_data="admin:back")])
+    kb = InlineKeyboardMarkup(inline_keyboard=buttons)
+    await callback.message.edit_text("💰 Выберите пользователя:", reply_markup=kb)
+    await callback.answer()
+
+@router.callback_query(F.data.startswith("admin:bal_user:"))
+async def admin_bal_user(callback: CallbackQuery, state: FSMContext):
+    if not is_admin(callback.from_user.id):
+        return
+    uid = int(callback.data.split(":")[2])
+    await state.set_state(AdminBalance.enter_amount)
+    await state.update_data(target_user=uid)
+    await callback.message.answer(
+        f"💰 Введите сумму для пользователя {uid}\\n"
+        f"(положительное для начисления, отрицательное для списания):"
+    )
+    await callback.answer()
+
+@router.message(AdminBalance.enter_amount)
+async def admin_balance_amount(message: Message, state: FSMContext):
+    if not is_admin(message.from_user.id):
+        return
+    try:
+        amount = float(message.text)
+    except ValueError:
+        await message.answer("❌ Введите число!")
+        return
+    data = await state.get_data()
+    uid = data["target_user"]
+    await state.clear()
+
+    db_update_balance(uid, amount, "admin_adjustment")
+    action = "начислено" if amount > 0 else "списано"
+    await message.answer(f"✅ Пользователю {uid} {action}: {amount}")
+
+# --- Бонусы ---
+@router.callback_query(F.data == "admin:bonuses")
+async def admin_bonuses(callback: CallbackQuery):
+    if not is_admin(callback.from_user.id):
+        return
+    keys = ["daily_bonus", "referral_bonus", "mining_reward", "tap_reward", "daily_click_limit", "currency"]
+    text = "🎁 <b>Настройки бонусов:</b>\\n\\n"
+    buttons = []
+    for k in keys:
+        v = db_get_bonus(k)
+        text += f"<b>{k}</b>: {v}\\n"
+        buttons.append([InlineKeyboardButton(text=f"✏️ {k}", callback_data=f"admin:edit_bonus:{k}")])
+    buttons.append([InlineKeyboardButton(text="🔙 Назад", callback_data="admin:back")])
+    kb = InlineKeyboardMarkup(inline_keyboard=buttons)
+    await callback.message.edit_text(text, reply_markup=kb, parse_mode="HTML")
+    await callback.answer()
+
+@router.callback_query(F.data.startswith("admin:edit_bonus:"))
+async def admin_edit_bonus(callback: CallbackQuery, state: FSMContext):
+    if not is_admin(callback.from_user.id):
+        return
+    key = callback.data.split(":")[2]
+    await state.set_state(AdminBonusEdit.enter_value)
+    await state.update_data(bonus_key=key)
+    current = db_get_bonus(key)
+    await callback.message.answer(f"Текущее значение <b>{key}</b>: {current}\\nВведите новое:", parse_mode="HTML")
+    await callback.answer()
+
+@router.message(AdminBonusEdit.enter_value)
+async def admin_bonus_value(message: Message, state: FSMContext):
+    if not is_admin(message.from_user.id):
+        return
+    data = await state.get_data()
+    key = data["bonus_key"]
+    value = message.text.strip()
+    await state.clear()
+    db_set_bonus(key, value)
+    await message.answer(f"✅ <b>{key}</b> = {value}", parse_mode="HTML")
+
+# --- Курс ---
+@router.callback_query(F.data == "admin:rate")
+async def admin_rate(callback: CallbackQuery, state: FSMContext):
+    if not is_admin(callback.from_user.id):
+        return
+    rate = db_get_setting("exchange_rate")
+    await state.set_state(AdminRateEdit.enter_rate)
+    await callback.message.answer(f"💱 Текущий курс: {rate} USDT за 1 монету\\nВведите новый:")
+    await callback.answer()
+
+@router.message(AdminRateEdit.enter_rate)
+async def admin_rate_value(message: Message, state: FSMContext):
+    if not is_admin(message.from_user.id):
+        return
+    try:
+        rate = float(message.text)
+    except ValueError:
+        await message.answer("❌ Введите число!")
+        return
+    await state.clear()
+    db_set_setting("exchange_rate", str(rate))
+    await message.answer(f"✅ Курс обновлён: {rate}")
+
+# --- Канал ---
+@router.callback_query(F.data == "admin:channel")
+async def admin_channel(callback: CallbackQuery, state: FSMContext):
+    if not is_admin(callback.from_user.id):
+        return
+    ch = db_get_channel()
+    await state.set_state(AdminChannelEdit.enter_url)
+    await callback.message.answer(
+        f"📢 Текущий канал: {ch['channel_name']} ({ch['channel_url']})\\nВведите URL канала:"
+    )
+    await callback.answer()
+
+@router.message(AdminChannelEdit.enter_url)
+async def admin_channel_url(message: Message, state: FSMContext):
+    if not is_admin(message.from_user.id):
+        return
+    await state.update_data(url=message.text.strip())
+    await state.set_state(AdminChannelEdit.enter_name)
+    await message.answer("Введите название канала:")
+
+@router.message(AdminChannelEdit.enter_name)
+async def admin_channel_name(message: Message, state: FSMContext):
+    if not is_admin(message.from_user.id):
+        return
+    data = await state.get_data()
+    await state.clear()
+    db_set_channel(data["url"], message.text.strip())
+    await message.answer(f"✅ Канал обновлён: {message.text.strip()} ({data['url']})")
+
+# --- Flyer ---
+@router.callback_query(F.data == "admin:flyer")
+async def admin_flyer(callback: CallbackQuery, state: FSMContext):
+    if not is_admin(callback.from_user.id):
+        return
+    key = db_get_flyer_key()
+    status = "✅ Установлен" if key else "❌ Не установлен"
+    available = "✅ Библиотека доступна" if FLYER_AVAILABLE else "❌ flyerapi не установлен"
+
+    kb = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="✏️ Изменить ключ", callback_data="admin:flyer:edit")],
+        [InlineKeyboardButton(text="🔙 Назад", callback_data="admin:back")],
+    ])
+    await callback.message.edit_text(
+        f"🔑 <b>Flyer API</b>\\n\\n"
+        f"Ключ: {status}\\n"
+        f"Статус: {available}",
+        reply_markup=kb,
+        parse_mode="HTML"
+    )
+    await callback.answer()
+
+@router.callback_query(F.data == "admin:flyer:edit")
+async def admin_flyer_edit(callback: CallbackQuery, state: FSMContext):
+    if not is_admin(callback.from_user.id):
+        return
+    await state.set_state(AdminFlyerEdit.enter_key)
+    await callback.message.answer("🔑 Введите новый Flyer API ключ (или 'clear' для удаления):")
+    await callback.answer()
+
+@router.message(AdminFlyerEdit.enter_key)
+async def admin_flyer_key(message: Message, state: FSMContext):
+    if not is_admin(message.from_user.id):
+        return
+    key = message.text.strip()
+    if key.lower() == "clear":
+        key = ""
+    await state.clear()
+    db_set_flyer_key(key)
+    await message.answer(f"✅ Flyer ключ {'обновлён' if key else 'удалён'}")
+
+# --- Статистика ---
+@router.callback_query(F.data == "admin:stats")
+async def admin_stats(callback: CallbackQuery):
+    if not is_admin(callback.from_user.id):
+        return
+    s = db_get_stats()
+    cur = db_get_currency()
+    await callback.message.edit_text(
+        f"📊 <b>Статистика бота</b>\\n\\n"
+        f"👥 Пользователей: <b>{s['total_users']}</b>\\n"
+        f"💰 Монет в обороте: <b>{s['total_coins']}</b> {cur}\\n"
+        f"⏳ Заявок в ожидании: <b>{s['pending_withdrawals']}</b>\\n"
+        f"📋 Всего заявок: <b>{s['total_withdrawals']}</b>",
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="🔙 Назад", callback_data="admin:back")]
+        ]),
+        parse_mode="HTML"
+    )
+    await callback.answer()
+
+# --- Юзеры ---
+@router.callback_query(F.data == "admin:users")
+async def admin_users(callback: CallbackQuery):
+    if not is_admin(callback.from_user.id):
+        return
+    users = db_get_recent_users(10)
+    cur = db_get_currency()
+    text = "👥 <b>Последние пользователи:</b>\\n\\n"
+    for u in users:
+        name = u["username"] or u["full_name"] or "—"
+        text += f"• {name} (ID: {u['user_id']}) — {u['balance']} {cur}\\n"
+
+    await callback.message.edit_text(
+        text,
+        reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="🔙 Назад", callback_data="admin:back")]
+        ]),
+        parse_mode="HTML"
+    )
+    await callback.answer()
+
+# --- Промо-реклама ---
+@router.callback_query(F.data == "admin:promo")
+async def admin_promo(callback: CallbackQuery):
+    if not is_admin(callback.from_user.id):
+        return
+    promos = db_get_all_promos()
+    text = "🎯 <b>Промо-реклама</b>\\n\\n"
+    buttons = []
+
+    if promos:
+        for p in promos[:5]:
+            status = "🟢" if p["is_active"] else "🔴"
+            text += f"{status} #{p['id']}: {p['line1'][:30]}...\\n"
+            row = [
+                InlineKeyboardButton(
+                    text=f"{'🔴' if p['is_active'] else '🟢'} #{p['id']}",
+                    callback_data=f"admin:promo_toggle:{p['id']}"
+                ),
+                InlineKeyboardButton(text=f"🗑 #{p['id']}", callback_data=f"admin:promo_del:{p['id']}"),
+            ]
+            buttons.append(row)
+    else:
+        text += "Нет промо-реклам.\\n"
+
+    buttons.append([InlineKeyboardButton(text="➕ Создать", callback_data="admin:promo_new")])
+    buttons.append([InlineKeyboardButton(text="🔙 Назад", callback_data="admin:back")])
+    kb = InlineKeyboardMarkup(inline_keyboard=buttons)
+    await callback.message.edit_text(text, reply_markup=kb, parse_mode="HTML")
+    await callback.answer()
+
+@router.callback_query(F.data == "admin:promo_new")
+async def admin_promo_new(callback: CallbackQuery, state: FSMContext):
+    if not is_admin(callback.from_user.id):
+        return
+    await state.set_state(AdminPromoCreate.line1)
+    await callback.message.answer("📝 Введите строку 1 промо:")
+    await callback.answer()
+
+@router.message(AdminPromoCreate.line1)
+async def promo_line1(message: Message, state: FSMContext):
+    await state.update_data(line1=message.text)
+    await state.set_state(AdminPromoCreate.line2)
+    await message.answer("📝 Введите строку 2:")
+
+@router.message(AdminPromoCreate.line2)
+async def promo_line2(message: Message, state: FSMContext):
+    await state.update_data(line2=message.text)
+    await state.set_state(AdminPromoCreate.line3)
+    await message.answer("📝 Введите строку 3:")
+
+@router.message(AdminPromoCreate.line3)
+async def promo_line3(message: Message, state: FSMContext):
+    await state.update_data(line3=message.text)
+    await state.set_state(AdminPromoCreate.button_text)
+    await message.answer("📝 Текст кнопки:")
+
+@router.message(AdminPromoCreate.button_text)
+async def promo_btn_text(message: Message, state: FSMContext):
+    await state.update_data(button_text=message.text)
+    await state.set_state(AdminPromoCreate.button_url)
+    await message.answer("📝 URL кнопки:")
+
+@router.message(AdminPromoCreate.button_url)
+async def promo_btn_url(message: Message, state: FSMContext):
+    data = await state.get_data()
+    await state.clear()
+    conn = get_db()
+    now = datetime.now(timezone.utc).isoformat()
+    conn.execute(
+        "INSERT INTO promo_ads (line1, line2, line3, button_text, button_url, is_active, created_at) "
+        "VALUES (?,?,?,?,?,0,?)",
+        (data["line1"], data["line2"], data["line3"], data["button_text"], message.text, now)
+    )
+    conn.commit()
+    conn.close()
+    await message.answer("✅ Промо создано! Активируйте через меню.")
+
+@router.callback_query(F.data.startswith("admin:promo_toggle:"))
+async def admin_promo_toggle(callback: CallbackQuery):
+    if not is_admin(callback.from_user.id):
+        return
+    pid = int(callback.data.split(":")[2])
+    conn = get_db()
+    row = conn.execute("SELECT is_active FROM promo_ads WHERE id=?", (pid,)).fetchone()
+    if row:
+        new_val = 0 if row["is_active"] else 1
+        if new_val == 1:
+            conn.execute("UPDATE promo_ads SET is_active=0")  # Деактивируем все
+        conn.execute("UPDATE promo_ads SET is_active=? WHERE id=?", (new_val, pid))
+        conn.commit()
+    conn.close()
+    await admin_promo(callback)
+
+@router.callback_query(F.data.startswith("admin:promo_del:"))
+async def admin_promo_del(callback: CallbackQuery):
+    if not is_admin(callback.from_user.id):
+        return
+    pid = int(callback.data.split(":")[2])
+    conn = get_db()
+    conn.execute("DELETE FROM promo_ads WHERE id=?", (pid,))
+    conn.commit()
+    conn.close()
+    await callback.answer("🗑 Удалено", show_alert=True)
+    await admin_promo(callback)
+
+# --- Назад в админку ---
+@router.callback_query(F.data == "admin:back")
+async def admin_back(callback: CallbackQuery, state: FSMContext):
+    if not is_admin(callback.from_user.id):
+        return
+    await state.clear()
+    await callback.message.edit_text("🔧 <b>Админ-панель</b>", reply_markup=admin_menu_kb(), parse_mode="HTML")
+    await callback.answer()
+
+# ============================================================
+# 11. ФОНОВЫЕ ЗАДАЧИ
+# ============================================================
+async def reset_taps_midnight(bot: Bot):
+    """Сброс taps_today каждый день в полночь UTC."""
+    while True:
+        now = datetime.now(timezone.utc)
+        tomorrow = (now + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+        wait = (tomorrow - now).total_seconds()
+        logger.info(f"Сброс тапов через {int(wait)} секунд")
+        await asyncio.sleep(wait)
+        try:
+            conn = get_db()
+            conn.execute("UPDATE users SET taps_today=0, last_tap_reset=?", (datetime.now(timezone.utc).isoformat(),))
+            conn.commit()
+            conn.close()
+            logger.info("Тапы сброшены!")
+        except Exception as e:
+            logger.error(f"Ошибка сброса тапов: {e}")
+
+async def cleanup_boosts_task():
+    """Очистка истёкших бустов каждые 5 минут."""
+    while True:
+        await asyncio.sleep(300)
+        try:
+            db_cleanup_boosts()
+        except Exception as e:
+            logger.error(f"Ошибка очистки бустов: {e}")
+
+# ============================================================
+# 12. ЗАПУСК
+# ============================================================
+async def main():
+    init_db()
+
+    bot = Bot(
+        token=BOT_TOKEN,
+        default=DefaultBotProperties(parse_mode=ParseMode.HTML)
+    )
+    dp = Dispatcher()
+
+    # Middleware
+    router.message.middleware(HiViewsMiddleware())
+    router.callback_query.middleware(HiViewsMiddleware())
+
+    dp.include_router(router)
+
+    # Фоновые задачи
+    asyncio.create_task(reset_taps_midnight(bot))
+    asyncio.create_task(cleanup_boosts_task())
+
+    logger.info("🚀 CryptoMiner Bot запущен!")
+    await dp.start_polling(bot)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+`;
+
+    // Display code
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    function highlightPython(code) {
+        let html = escapeHtml(code);
+
+        // Strings (triple-quoted first, then single/double)
+        html = html.replace(/(&quot;&quot;&quot;[\s\S]*?&quot;&quot;&quot;|&#039;&#039;&#039;[\s\S]*?&#039;&#039;&#039;)/g, '<span style="color:#a5d6ff">$1</span>');
+        html = html.replace(/(f?&quot;(?:[^&]|&(?!quot;))*?&quot;|f?&#039;(?:[^&]|&(?!#039;))*?&#039;)/g, '<span style="color:#a5d6ff">$1</span>');
+
+        // Comments
+        html = html.replace(/(#.*?)(\n|$)/g, '<span style="color:#8b949e">$1</span>$2');
+
+        // Keywords
+        const keywords = ['import', 'from', 'def', 'async', 'await', 'class', 'return', 'if', 'else', 'elif', 'for', 'while', 'try', 'except', 'finally', 'with', 'as', 'not', 'and', 'or', 'in', 'is', 'True', 'False', 'None', 'yield', 'lambda', 'pass', 'break', 'continue', 'raise', 'global', 'nonlocal'];
+        keywords.forEach(kw => {
+            const re = new RegExp(`\\b(${kw})\\b`, 'g');
+            html = html.replace(re, '<span style="color:#ff7b72">$1</span>');
+        });
+
+        // Decorators
+        html = html.replace(/(@\w+[\w.]*)/g, '<span style="color:#d2a8ff">$1</span>');
+
+        // Numbers
+        html = html.replace(/\b(\d+\.?\d*)\b/g, '<span style="color:#79c0ff">$1</span>');
+
+        return html;
+    }
+
+    document.getElementById('bot-code').innerHTML = highlightPython(BOT_CODE);
+
+    // Tab switching
+    function switchTab(tab) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+        document.querySelectorAll('[id^="tab-"]').forEach(el => {
+            el.classList.remove('tab-active');
+            el.classList.add('tab-inactive');
+        });
+        document.getElementById('content-' + tab).classList.remove('hidden');
+        document.getElementById('tab-' + tab).classList.remove('tab-inactive');
+        document.getElementById('tab-' + tab).classList.add('tab-active');
+    }
+    window.switchTab = switchTab;
+
+    // Copy code
+    function copyCode() {
+        navigator.clipboard.writeText(BOT_CODE).then(() => {
+            const btn = document.querySelector('.copy-btn');
+            const orig = btn.textContent;
+            btn.textContent = '✅ Скопировано!';
+            setTimeout(() => btn.textContent = orig, 2000);
+        });
+    }
+    window.copyCode = copyCode;
+
+    // Download bot
+    function downloadBot() {
+        const blob = new Blob([BOT_CODE], { type: 'text/plain' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'bot.py';
+        a.click();
+    }
+    window.downloadBot = downloadBot;
+
+    // Generate .env
+    function generateEnv() {
+        const token = document.getElementById('env-token').value || 'YOUR_BOT_TOKEN';
+        const admins = document.getElementById('env-admins').value || 'YOUR_ADMIN_ID';
+        const flyer = document.getElementById('env-flyer').value || '';
+        const hiviews = document.getElementById('env-hiviews').value || '';
+
+        const env = `BOT_TOKEN=${token}\nADMIN_IDS=${admins}\nFLYER_KEY=${flyer}\nHIVIEWS_API_KEY=${hiviews}`;
+
+        document.getElementById('env-code').textContent = env;
+        document.getElementById('env-preview').classList.remove('hidden');
+
+        const blob = new Blob([env], { type: 'text/plain' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = '.env';
+        a.click();
+    }
+    window.generateEnv = generateEnv;
+    </script>
+</body>
+</html>
