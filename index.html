@@ -1,548 +1,740 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KodoDrive - Python Full Stack Developer</title>
-    <meta name="description" content="Python Full Stack разработчик. Создаю современные веб-приложения с Django, Flask, React. Опыт в машинном обучении и DevOps.">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Прайс-лист Telegram-ботов | KodoDrive</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+
+    body {
+      background: #0a0e1a;
+      color: #e2e8f0;
+      overflow-x: hidden;
+    }
+
+    /* Animated background */
+    .bg-animated {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bg-animated::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(99,102,241,0.18) 0%, transparent 70%);
+      top: -100px; left: -100px;
+      animation: floatBlob1 12s ease-in-out infinite;
+    }
+
+    .bg-animated::after {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(14,165,233,0.15) 0%, transparent 70%);
+      bottom: -100px; right: -100px;
+      animation: floatBlob2 15s ease-in-out infinite;
+    }
+
+    .blob3 {
+      position: absolute;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(168,85,247,0.12) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: floatBlob3 10s ease-in-out infinite;
+    }
+
+    @keyframes floatBlob1 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(80px, 60px) scale(1.1); }
+      66% { transform: translate(-40px, 100px) scale(0.95); }
+    }
+    @keyframes floatBlob2 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-80px, -60px) scale(1.1); }
+      66% { transform: translate(40px, -100px) scale(0.95); }
+    }
+    @keyframes floatBlob3 {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.2); }
+    }
+
+    /* Grid stars */
+    .stars {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 80% 10%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 50% 70%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 10% 80%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 35% 50%, rgba(255,255,255,0.2) 0%, transparent 100%),
+        radial-gradient(1px 1px at 70% 85%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 60% 20%, rgba(255,255,255,0.25) 0%, transparent 100%),
+        radial-gradient(1px 1px at 15% 45%, rgba(255,255,255,0.2) 0%, transparent 100%),
+        radial-gradient(1px 1px at 85% 35%, rgba(255,255,255,0.35) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    /* Main content */
+    .content {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header glow */
+    .header-glow {
+      text-shadow: 0 0 40px rgba(99,102,241,0.6), 0 0 80px rgba(99,102,241,0.3);
+    }
+
+    /* Card styles */
+    .card {
+      background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(99,102,241,0.4), rgba(14,165,233,0.2), rgba(168,85,247,0.3));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    .card:hover {
+      transform: translateY(-8px) scale(1.01);
+      border-color: rgba(99,102,241,0.3);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.4), 0 0 40px rgba(99,102,241,0.15);
+    }
+
+    /* Shine effect */
+    .card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 50%;
+      height: 200%;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.04), transparent);
+      transform: skewX(-20deg);
+      transition: left 0.7s ease;
+      pointer-events: none;
+    }
+
+    .card:hover::after {
+      left: 130%;
+    }
+
+    /* Featured card */
+    .card-featured {
+      background: linear-gradient(135deg, rgba(99,102,241,0.12) 0%, rgba(168,85,247,0.08) 100%);
+      border-color: rgba(99,102,241,0.25);
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 99px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .badge-blue { background: rgba(14,165,233,0.2); color: #38bdf8; border: 1px solid rgba(14,165,233,0.3); }
+    .badge-purple { background: rgba(168,85,247,0.2); color: #c084fc; border: 1px solid rgba(168,85,247,0.3); }
+    .badge-indigo { background: rgba(99,102,241,0.2); color: #818cf8; border: 1px solid rgba(99,102,241,0.3); }
+
+    /* Price tag */
+    .price-tag {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 12px;
+      padding: 10px 20px;
+      display: inline-block;
+      box-shadow: 0 4px 20px rgba(99,102,241,0.4);
+      transition: all 0.3s ease;
+    }
+
+    .price-tag:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 30px rgba(99,102,241,0.6);
+    }
+
+    /* Number circle */
+    .num-circle {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    /* Special offer */
+    .special-card {
+      background: linear-gradient(135deg, rgba(251,191,36,0.1) 0%, rgba(245,158,11,0.07) 100%);
+      border: 1px solid rgba(251,191,36,0.25);
+      border-radius: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .special-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(251,191,36,0.08), transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Pulse animation for special */
+    .pulse-ring {
+      position: absolute;
+      top: -2px; left: -2px; right: -2px; bottom: -2px;
+      border-radius: 26px;
+      border: 2px solid rgba(251,191,36,0.4);
+      animation: pulseBorder 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulseBorder {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.005); }
+    }
+
+    /* Feature list item */
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: all 0.2s ease;
+    }
+
+    .feature-item:last-child { border-bottom: none; }
+    .feature-item:hover { padding-left: 4px; }
+
+    .check-icon {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: rgba(99,102,241,0.2);
+      border: 1px solid rgba(99,102,241,0.4);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* CTA Button */
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+      background-size: 200% 200%;
+      border: none;
+      border-radius: 16px;
+      padding: 16px 36px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: white;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 32px rgba(99,102,241,0.4);
+      animation: gradientShift 4s ease infinite;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .cta-btn:hover::before { left: 100%; }
+
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 48px rgba(99,102,241,0.55);
+    }
+
+    .cta-btn:active { transform: translateY(0); }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* Scroll fade-in */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stagger delays */
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(99,102,241,0.4), rgba(14,165,233,0.3), transparent);
+    }
+
+    /* Tag chips inside cards */
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 99px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #94a3b8;
+      transition: all 0.2s;
+    }
+
+    .chip:hover {
+      background: rgba(99,102,241,0.15);
+      border-color: rgba(99,102,241,0.3);
+      color: #c7d2fe;
+    }
+
+    /* Floating number label */
+    .float-num {
+      position: absolute;
+      top: -1px; right: 20px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      font-weight: 900;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      padding: 4px 14px;
+      border-radius: 0 0 12px 12px;
+      box-shadow: 0 4px 12px rgba(99,102,241,0.4);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0e1a; }
+    ::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.4); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(99,102,241,0.7); }
+
+    /* Header title gradient */
+    .title-gradient {
+      background: linear-gradient(135deg, #e2e8f0 0%, #818cf8 40%, #38bdf8 70%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Rotating Telegram icon */
+    .tg-icon {
+      display: inline-block;
+      animation: floatY 3s ease-in-out infinite;
+    }
+
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* Tooltip */
+    .tooltip {
+      position: relative;
+    }
+    .tooltip .tip-text {
+      position: absolute;
+      bottom: 130%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15,20,40,0.95);
+      border: 1px solid rgba(99,102,241,0.3);
+      color: #c7d2fe;
+      font-size: 0.72rem;
+      padding: 6px 12px;
+      border-radius: 8px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      z-index: 10;
+    }
+    .tooltip:hover .tip-text { opacity: 1; }
+  </style>
 </head>
 <body>
-    <!-- Навигация -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <span class="logo-bracket">&lt;</span>
-                <span class="logo-text">KodoDrive</span>
-                <span class="logo-bracket">/&gt;</span>
+
+<!-- Background -->
+<div class="bg-animated"><div class="blob3"></div></div>
+<div class="stars"></div>
+
+<!-- Main Content -->
+<div class="content min-h-screen">
+
+  <!-- Header -->
+  <header class="text-center pt-16 pb-8 px-4">
+    <div class="fade-in visible">
+      <div class="tg-icon text-6xl mb-4">🤖</div>
+      <div class="inline-block badge badge-indigo mb-4">📋 Готовые скрипты</div>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-black title-gradient leading-tight mb-4">
+        Прайс‑лист<br/>Telegram‑ботов
+      </h1>
+      <p class="text-slate-400 text-lg max-w-xl mx-auto font-light">
+        Готовые к запуску решения для монетизации вашего Telegram‑канала
+      </p>
+    </div>
+
+    <div class="divider max-w-2xl mx-auto mt-10 fade-in visible"></div>
+  </header>
+
+  <!-- Cards Section -->
+  <section class="max-w-5xl mx-auto px-4 py-8 space-y-6">
+
+    <!-- Card 1: Auction Bot -->
+    <div class="card fade-in delay-1">
+      <div class="float-num">№ 01</div>
+      <div class="p-6 md:p-8">
+        <div class="flex flex-col md:flex-row md:items-start gap-6">
+          <!-- Icon + Title -->
+          <div class="flex items-start gap-4 flex-1">
+            <div class="num-circle bg-gradient-to-br from-blue-500/20 to-indigo-600/20 border border-blue-500/30 text-blue-400 text-2xl">
+              🔨
             </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#home" class="nav-link">Главная</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#about" class="nav-link">Обо мне</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#skills" class="nav-link">Технологии</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#projects" class="nav-link">Проекты</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#experience" class="nav-link">Опыт</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link">Контакты</a>
-                </li>
-            </ul>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+            <div class="flex-1">
+              <div class="flex flex-wrap items-center gap-2 mb-2">
+                <h2 class="text-xl md:text-2xl font-bold text-white">Auction Bot</h2>
+                <span class="badge badge-blue">Аукцион</span>
+              </div>
+              <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                Полнофункциональный аукцион‑бот с интеграцией <strong class="text-blue-400">CryptoPay</strong>. Поддержка тем в супергруппах, создание аукционов из лички, автосохранение групп, автозакрепление, напоминания, гибкая админ‑панель.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="chip">💳 CryptoPay</span>
+                <span class="chip">🔔 Напоминания</span>
+                <span class="chip">📌 Автозакрепление</span>
+                <span class="chip">⚙️ Админ‑панель</span>
+                <span class="chip">💬 Темы супергрупп</span>
+              </div>
             </div>
+          </div>
+          <!-- Price -->
+          <div class="flex flex-col items-start md:items-end gap-3 flex-shrink-0">
+            <div class="price-tag">
+              <span class="text-white font-black text-3xl">$30</span>
+              <span class="text-indigo-200 text-sm font-medium ml-1">USD</span>
+            </div>
+            <a href="https://t.me/KodoDrive" target="_blank" class="text-indigo-400 hover:text-indigo-300 text-sm font-medium transition-colors flex items-center gap-1">
+              ✈️ Купить →
+            </a>
+          </div>
         </div>
-    </nav>
+      </div>
+    </div>
 
-    <!-- Hero секция -->
-    <section id="home" class="hero">
-        <div class="code-rain"></div>
-        <div class="hero-content">
-            <div class="hero-text">
-                <div class="code-line">
-                    <span class="code-comment"># Привет, мир!</span>
-                </div>
-                <h1 class="hero-title">
-                    <span class="highlight">KodoDrive</span>
-                </h1>
-                <div class="hero-subtitle">
-                    <span class="code-string">Python Full Stack Developer</span>
-                </div>
-                <div class="hero-description">
-                    <span class="code-string">Создание масштабируемых веб-приложений: Django, React, PostgreSQL, Docker</span>
-                </div>
-                <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary">
-                        <span class="btn-icon">⚡</span>
-                        Мои проекты
-                    </a>
-                    <a href="#contact" class="btn btn-secondary">
-                        <span class="btn-icon">📧</span>
-                        Связаться
-                    </a>
-                </div>
+    <!-- Card 2: Casino Stars -->
+    <div class="card card-featured fade-in delay-2">
+      <div class="float-num" style="background: linear-gradient(135deg, #8b5cf6, #a855f7);">№ 02</div>
+      <div class="p-6 md:p-8">
+        <div class="flex flex-col md:flex-row md:items-start gap-6">
+          <div class="flex items-start gap-4 flex-1">
+            <div class="num-circle bg-gradient-to-br from-purple-500/20 to-pink-600/20 border border-purple-500/30 text-purple-400 text-2xl">
+              🎰
             </div>
-            <div class="hero-image">
-                <div class="code-editor">
-                    <div class="editor-header">
-                        <div class="editor-buttons">
-                            <span class="btn-close"></span>
-                            <span class="btn-minimize"></span>
-                            <span class="btn-maximize"></span>
-                        </div>
-                        <div class="editor-title">main.py</div>
-                    </div>
-                    <div class="editor-content">
-                        <div class="line-numbers">
-                            <span>1</span>
-                            <span>2</span>
-                            <span>3</span>
-                            <span>4</span>
-                            <span>5</span>
-                            <span>6</span>
-                        </div>
-                        <div class="code-content">
-                            <div><span class="code-keyword">from</span> kododrive <span class="code-keyword">import</span> Developer</div>
-                            <div></div>
-                            <div><span class="code-keyword">def</span> <span class="code-function">create_awesome_app</span>():</div>
-                            <div><span class="code-indent">    </span><span class="code-keyword">return</span> Developer().build()</div>
-                            <div></div>
-                            <div><span class="code-comment"># Готов к новым вызовам! 🚀</span></div>
-                        </div>
-                    </div>
-                </div>
+            <div class="flex-1">
+              <div class="flex flex-wrap items-center gap-2 mb-2">
+                <h2 class="text-xl md:text-2xl font-bold text-white">Casino Stars</h2>
+                <span class="badge badge-purple">Казино</span>
+                <span class="inline-block text-xs bg-gradient-to-r from-yellow-400/20 to-orange-400/20 border border-yellow-400/30 text-yellow-300 px-2 py-0.5 rounded-full font-semibold">⭐ POPULAR</span>
+              </div>
+              <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                Казино‑бот с оплатой <strong class="text-purple-400">звёздами Telegram</strong>. Игры: кости, слоты, рулетка. Система кейсов, задания Grambee, рефералы, вывод средств, промокоды, админ‑панель.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="chip">⭐ Telegram Stars</span>
+                <span class="chip">🎲 Кости</span>
+                <span class="chip">🎰 Слоты</span>
+                <span class="chip">🎡 Рулетка</span>
+                <span class="chip">📦 Кейсы</span>
+                <span class="chip">🤝 Рефералы</span>
+                <span class="chip">🏷️ Промокоды</span>
+              </div>
             </div>
+          </div>
+          <div class="flex flex-col items-start md:items-end gap-3 flex-shrink-0">
+            <div class="price-tag" style="background: linear-gradient(135deg, #8b5cf6, #a855f7);">
+              <span class="text-white font-black text-3xl">$40</span>
+              <span class="text-purple-200 text-sm font-medium ml-1">USD</span>
+            </div>
+            <a href="https://t.me/KodoDrive" target="_blank" class="text-purple-400 hover:text-purple-300 text-sm font-medium transition-colors flex items-center gap-1">
+              ✈️ Купить →
+            </a>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
 
-    <!-- Обо мне -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="code-comment">// Обо мне</span>
-            </h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>
-                        Я — <strong>Python Full Stack разработчик</strong> с <strong>5+ лет опыта</strong> 
-                        создания высоконагруженных веб-приложений. Специализируюсь на разработке 
-                        backend на Django/Flask и современного frontend на React.
-                    </p>
-                    <p>
-                        Имею опыт работы с <strong>машинным обучением</strong>, <strong>DevOps практиками</strong> 
-                        и построением <strong>микросервисной архитектуры</strong>. Люблю решать сложные 
-                        технические задачи и создавать продукты, которые приносят реальную пользу.
-                    </p>
-                    <div class="about-features">
-                        <div class="feature-item">
-                            <span class="feature-icon">🐍</span>
-                            <span>Python Expert</span>
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-icon">⚡</span>
-                            <span>Fast Learner</span>
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-icon">🔧</span>
-                            <span>Problem Solver</span>
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-icon">🚀</span>
-                            <span>Performance Focused</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-stats">
-                    <div class="stat-item">
-                        <span class="stat-number">50+</span>
-                        <span class="stat-label">Проектов</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">5+</span>
-                        <span class="stat-label">Лет опыта</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">20+</span>
-                        <span class="stat-label">Клиентов</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">99%</span>
-                        <span class="stat-label">Uptime</span>
-                    </div>
-                </div>
+    <!-- Card 3: Referral Bot -->
+    <div class="card fade-in delay-3">
+      <div class="float-num" style="background: linear-gradient(135deg, #06b6d4, #0ea5e9);">№ 03</div>
+      <div class="p-6 md:p-8">
+        <div class="flex flex-col md:flex-row md:items-start gap-6">
+          <div class="flex items-start gap-4 flex-1">
+            <div class="num-circle bg-gradient-to-br from-cyan-500/20 to-sky-600/20 border border-cyan-500/30 text-cyan-400 text-2xl">
+              👥
             </div>
-        </div>
-    </section>
-
-    <!-- Технологии -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="code-comment">// Технологический стек</span>
-            </h2>
-            <div class="skills-categories">
-                <div class="skill-category">
-                    <h3 class="category-title">Backend</h3>
-                    <div class="skills-grid">
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-icon">🐍</span>
-                                <span class="skill-name">Python</span>
-                                <span class="skill-percentage">95%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="95"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-icon">🎯</span>
-                                <span class="skill-name">Django</span>
-                                <span class="skill-percentage">90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="90"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-icon">⚡</span>
-                                <span class="skill-name">FastAPI</span>
-                                <span class="skill-percentage">85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="85"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-icon">🌶️</span>
-                                <span class="skill-name">Flask</span>
-                                <span class="skill-percentage">80%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="80"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3 class="category-title">Frontend</h3>
-                    <div class="skills-grid">
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-icon">⚛️</span>
-                                <span class="skill-name">React</span>
-                                <span class="skill-percentage">88%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="88"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-icon">📜</span>
-                                <span class="skill-name">TypeScript</span>
-                                <span class="skill-percentage">85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="85"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-icon">🎨</span>
-                                <span class="skill-name">CSS3/SASS</span>
-                                <span class="skill-percentage">90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="90"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-icon">⚡</span>
-                                <span class="skill-name">Vue.js</span>
-                                <span class="skill-percentage">75%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="75"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3 class="category-title">Database & DevOps</h3>
-                    <div class="skills-grid">
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-icon">🐘</span>
-                                <span class="skill-name">PostgreSQL</span>
-                                <span class="skill-percentage">90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="90"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-icon">🐳</span>
-                                <span class="skill-name">Docker</span>
-                                <span class="skill-percentage">85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="85"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-icon">☁️</span>
-                                <span class="skill-name">AWS</span>
-                                <span class="skill-percentage">80%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="80"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span class="skill-icon">🔥</span>
-                                <span class="skill-name">Redis</span>
-                                <span class="skill-percentage">85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="85"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="flex-1">
+              <div class="flex flex-wrap items-center gap-2 mb-2">
+                <h2 class="text-xl md:text-2xl font-bold text-white">Referral Bot</h2>
+                <span class="badge badge-blue" style="background: rgba(6,182,212,0.2); color: #22d3ee; border-color: rgba(6,182,212,0.3);">Рефералы</span>
+              </div>
+              <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                Многоуровневая реферальная система с интеграциями <strong class="text-cyan-400">BotoHub, Tgrass и Flyer</strong>. Ранги, ежедневные награды, колесо фортуны, промокоды, вывод через CryptoBot, полная админка.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="chip">🌐 BotoHub</span>
+                <span class="chip">🌿 Tgrass</span>
+                <span class="chip">✈️ Flyer</span>
+                <span class="chip">🏆 Ранги</span>
+                <span class="chip">🎡 Колесо фортуны</span>
+                <span class="chip">💸 CryptoBot</span>
+                <span class="chip">🎁 Ежедн. награды</span>
+              </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Проекты - ИСПРАВЛЕННАЯ СЕКЦИЯ -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="code-comment">// Избранные проекты</span>
-            </h2>
-            <div class="projects-grid">
-                <div class="project-item">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <span class="project-icon">🔐</span>
-                        </div>
-                        <div class="project-overlay">
-                            <a href="https://github.com/svod011929/buryatvpn" target="_blank" rel="noopener noreferrer" class="project-link">GitHub</a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>BuryatVPN</h3>
-                        <p>Современный VPN сервис с Telegram ботом, веб-панелью администратора, множественными способами оплаты и системой аналитики. Высокий уровень безопасности с шифрованием данных.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Aiogram</span>
-                            <span class="tech-tag">Flask</span>
-                            <span class="tech-tag">PostgreSQL</span>
-                            <span class="tech-tag">Redis</span>
-                            <span class="tech-tag">Docker</span>
-                        </div>
-                        <div class="project-stats">
-                            <span class="stat">X-UI интеграция</span>
-                            <span class="stat">YooKassa + CryptoPay</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-item">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <span class="project-icon">🖥️</span>
-                        </div>
-                        <div class="project-overlay">
-                            <a href="https://github.com/svod011929/KDS_Server_Panel" target="_blank" rel="noopener noreferrer" class="project-link">GitHub</a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>KDS Server Panel</h3>
-                        <p>Мощный Telegram-бот для безопасного управления Linux-серверами по SSH. Интерактивный терминал, файловый менеджер, мониторинг системы и админ-панель с системой подписок.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Aiogram</span>
-                            <span class="tech-tag">AsyncSSH</span>
-                            <span class="tech-tag">PostgreSQL</span>
-                            <span class="tech-tag">Aiohttp</span>
-                            <span class="tech-tag">Docker</span>
-                        </div>
-                        <div class="project-stats">
-                            <span class="stat">SSH терминал</span>
-                            <span class="stat">SFTP файлы до 50МБ</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-item">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <span class="project-icon">💰</span>
-                        </div>
-                        <div class="project-overlay">
-                            <a href="https://github.com/svod011929/kds_parser_cryptobot" target="_blank" rel="noopener noreferrer" class="project-link">GitHub</a>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>CryptoBot Parser</h3>
-                        <p>Автопарсер Telegram-чеков CryptoBot с двумя аккаунтами для максимальной безопасности. Мгновенная активация, OCR распознавание капчи, автовывод средств и отчеты.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Telethon</span>
-                            <span class="tech-tag">OCR API</span>
-                            <span class="tech-tag">Asyncio</span>
-                            <span class="tech-tag">Regex</span>
-                        </div>
-                        <div class="project-stats">
-                            <span class="stat">5⭐ на GitHub</span>
-                            <span class="stat">Автораспознавание капчи</span>
-                        </div>
-                    </div>
-                </div>
+          </div>
+          <div class="flex flex-col items-start md:items-end gap-3 flex-shrink-0">
+            <div class="price-tag" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">
+              <span class="text-white font-black text-3xl">$50</span>
+              <span class="text-cyan-200 text-sm font-medium ml-1">USD</span>
             </div>
+            <a href="https://t.me/KodoDrive" target="_blank" class="text-cyan-400 hover:text-cyan-300 text-sm font-medium transition-colors flex items-center gap-1">
+              ✈️ Купить →
+            </a>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
 
-    <!-- Опыт работы -->
-    <section id="experience" class="experience">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="code-comment">// Опыт работы</span>
-            </h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-date">2023 — Настоящее время</div>
-                    <div class="timeline-content">
-                        <h3>Senior Python Developer</h3>
-                        <h4>Tech Startup</h4>
-                        <p>Ведущий разработчик в команде из 8 человек. Архитектура и разработка высоконагруженной платформы с 100K+ пользователями.</p>
-                        <ul>
-                            <li>Проектирование микросервисной архитектуры</li>
-                            <li>Оптимизация производительности (снижение времени ответа на 60%)</li>
-                            <li>Менторинг младших разработчиков</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">2021 — 2023</div>
-                    <div class="timeline-content">
-                        <h3>Full Stack Developer</h3>
-                        <h4>Digital Agency</h4>
-                        <p>Разработка веб-приложений для крупных клиентов. Ответственен за полный цикл разработки от идеи до деплоя.</p>
-                        <ul>
-                            <li>Создание 15+ успешных проектов</li>
-                            <li>Интеграция с внешними API и сервисами</li>
-                            <li>Настройка CI/CD пайплайнов</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">2020 — 2021</div>
-                    <div class="timeline-content">
-                        <h3>Python Developer</h3>
-                        <h4>Freelance</h4>
-                        <p>Разработка веб-приложений и автоматизация бизнес-процессов для малого и среднего бизнеса.</p>
-                        <ul>
-                            <li>Django и Flask приложения</li>
-                            <li>Скрипты для автоматизации</li>
-                            <li>Интеграция с CRM системами</li>
-                        </ul>
-                    </div>
-                </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="divider max-w-4xl mx-auto px-4 my-6"></div>
+
+  <!-- Why Section -->
+  <section class="max-w-5xl mx-auto px-4 py-6 fade-in delay-3">
+    <div class="card p-6 md:p-8">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="text-3xl">💡</div>
+        <h3 class="text-xl md:text-2xl font-bold text-white">Почему такие цены?</h3>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="feature-item">
+          <div class="check-icon"><span class="text-indigo-400 text-xs">✓</span></div>
+          <p class="text-slate-300 text-sm">Все боты <strong class="text-white">полностью готовы к запуску</strong> — достаточно вставить токены в <code class="bg-slate-800 px-1.5 py-0.5 rounded text-indigo-300 text-xs">.env</code></p>
+        </div>
+        <div class="feature-item">
+          <div class="check-icon"><span class="text-indigo-400 text-xs">✓</span></div>
+          <p class="text-slate-300 text-sm"><strong class="text-white">Автоустановка зависимостей</strong> — не нужно разбираться в pip</p>
+        </div>
+        <div class="feature-item">
+          <div class="check-icon"><span class="text-indigo-400 text-xs">✓</span></div>
+          <p class="text-slate-300 text-sm">Код <strong class="text-white">чистый, структурированный</strong>, с комментариями — легко кастомизировать</p>
+        </div>
+        <div class="feature-item">
+          <div class="check-icon"><span class="text-indigo-400 text-xs">✓</span></div>
+          <p class="text-slate-300 text-sm"><strong class="text-white">Админ‑панель</strong> и интеграция с CryptoPay, Telegram Stars, Grambee и др.</p>
+        </div>
+        <div class="feature-item md:col-span-2">
+          <div class="check-icon"><span class="text-indigo-400 text-xs">✓</span></div>
+          <p class="text-slate-300 text-sm">Цены специально снижены для <strong class="text-white">студентов и начинающих владельцев каналов</strong> — быстрая окупаемость через монетизацию</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Special Offer -->
+  <section class="max-w-5xl mx-auto px-4 py-4 pb-8 fade-in delay-4">
+    <div class="special-card p-6 md:p-10">
+      <div class="pulse-ring"></div>
+      <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+        <!-- Left -->
+        <div>
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-4xl">🔥</span>
+            <div>
+              <div class="inline-block badge text-yellow-300 border-yellow-400/30 mb-1" style="background: rgba(251,191,36,0.15);">
+                СПЕЦИАЛЬНОЕ ПРЕДЛОЖЕНИЕ
+              </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Контакты -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="code-comment">// Свяжитесь со мной</span>
-            </h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Готов к новым вызовам!</h3>
-                    <p>Ищете опытного Python разработчика для вашего проекта? Давайте обсудим, как я могу помочь воплотить ваши идеи в жизнь.</p>
-
-                    <div class="contact-methods">
-                        <div class="contact-item">
-                            <span class="contact-icon">📧</span>
-                            <div class="contact-details">
-                                <span class="contact-label">Email</span>
-                                <span class="contact-value">svod0335@gmail.com</span>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <span class="contact-icon">📱</span>
-                            <div class="contact-details">
-                                <span class="contact-label">Telegram</span>
-                                <span class="contact-value">@kododrive</span>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <span class="contact-icon">💼</span>
-                            <div class="contact-details">
-                                <span class="contact-label">LinkedIn</span>
-                                <span class="contact-value">linkedin.com/in/kododrive</span>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <span class="contact-icon">🐙</span>
-                            <div class="contact-details">
-                                <span class="contact-label">GitHub</span>
-                                <span class="contact-value">github.com/svod011929</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <form class="contact-form">
-                    <div class="form-header">
-                        <h4>Отправить сообщение</h4>
-                        <p>Расскажите о вашем проекте</p>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="name" name="name" placeholder="Ваше имя" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder="Email для связи" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="subject" name="subject" placeholder="Тема проекта" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" name="message" placeholder="Опишите ваш проект и требования..." rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">
-                        <span class="btn-icon">🚀</span>
-                        Отправить сообщение
-                    </button>
-                </form>
+          </div>
+          <h3 class="text-xl md:text-2xl font-bold text-white mb-2">
+            Все три бота — <span class="text-yellow-400">скидка 15%</span>
+          </h3>
+          <p class="text-slate-400 text-sm max-w-md">
+            При покупке полного комплекта вы получаете аукцион, казино и реферальную систему по специальной цене
+          </p>
+          <div class="flex items-center gap-4 mt-4">
+            <div>
+              <div class="text-slate-500 text-sm line-through">$120 USD</div>
+              <div class="text-4xl font-black text-yellow-400">$102 <span class="text-lg font-medium text-yellow-600">USD</span></div>
             </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-left">
-                    <div class="footer-logo">
-                        <span class="logo-bracket">&lt;</span>
-                        <span class="logo-text">KodoDrive</span>
-                        <span class="logo-bracket">/&gt;</span>
-                    </div>
-                    <p>Python Full Stack Developer</p>
-                </div>
-                <div class="footer-right">
-                    <p>&copy; 2025 KodoDrive. Создано с ❤️ и Python</p>
-                </div>
+            <div class="bg-yellow-400/15 border border-yellow-400/30 rounded-xl px-4 py-2">
+              <div class="text-yellow-400 font-black text-xl">-15%</div>
+              <div class="text-yellow-600 text-xs font-medium">Экономия $18</div>
             </div>
+          </div>
         </div>
-    </footer>
+        <!-- CTA -->
+        <div class="flex flex-col items-center gap-3">
+          <a href="https://t.me/KodoDrive" target="_blank" class="cta-btn">
+            <span>✈️</span>
+            <span>Купить на t.me/KodoDrive</span>
+          </a>
+          <p class="text-slate-500 text-xs text-center">Нажмите, чтобы открыть Telegram</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script src="script.js"></script>
+  <!-- Footer -->
+  <footer class="text-center py-8 px-4">
+    <div class="divider max-w-xl mx-auto mb-6"></div>
+    <p class="text-slate-600 text-sm">
+      Made with 💜 · <a href="https://t.me/KodoDrive" target="_blank" class="text-indigo-500 hover:text-indigo-400 transition-colors">@KodoDrive</a>
+    </p>
+  </footer>
+
+</div>
+
+<script>
+  // Intersection Observer for fade-in animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 80);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Parallax-like mouse movement for background blobs
+  document.addEventListener('mousemove', (e) => {
+    const { clientX: x, clientY: y } = e;
+    const w = window.innerWidth, h = window.innerHeight;
+    const px = (x / w - 0.5) * 30;
+    const py = (y / h - 0.5) * 30;
+    const before = document.querySelector('.bg-animated');
+    if (before) {
+      before.style.transform = `translate(${px * 0.3}px, ${py * 0.3}px)`;
+    }
+  });
+
+  // Card tilt on hover
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      const rotX = ((y - cy) / cy) * -4;
+      const rotY = ((x - cx) / cx) * 4;
+      card.style.transform = `translateY(-8px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.01)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+
+  // Animate price tags on scroll into view
+  const priceTags = document.querySelectorAll('.price-tag');
+  const priceObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.animation = 'none';
+        entry.target.offsetHeight; // reflow
+        entry.target.style.animation = '';
+        entry.target.classList.add('price-animate');
+      }
+    });
+  }, { threshold: 0.5 });
+
+  priceTags.forEach(tag => priceObserver.observe(tag));
+
+  // Count-up animation for total price
+  function countUp(el, target, duration = 1200) {
+    let start = 0;
+    const step = target / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) {
+        start = target;
+        clearInterval(timer);
+      }
+      el.textContent = '$' + Math.floor(start);
+    }, 16);
+  }
+
+  const totalPriceEl = document.querySelector('.text-4xl.font-black.text-yellow-400');
+  const totalObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const span = entry.target;
+        const usdSpan = span.querySelector('span');
+        const textNode = Array.from(span.childNodes).find(n => n.nodeType === 3);
+        if (textNode) {
+          countUp({ set textContent(v) { textNode.textContent = v + ' '; } }, 102, 1500);
+        }
+        totalObserver.unobserve(span);
+      }
+    });
+  }, { threshold: 0.8 });
+
+  if (totalPriceEl) totalObserver.observe(totalPriceEl);
+</script>
+
 </body>
 </html>
